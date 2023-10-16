@@ -404,4 +404,35 @@ task_t * scheduler() {
     return NULL;
 }
 
+/* TO-DO: Tudo aqui em baixo é para moficar */
+task_t * scheduler_srtf() {
+    /* TO-DO:  SRTF */
+    if ( readyQueue != NULL ) {
+        return readyQueue;
+    }
+    return NULL;
+    /*
+    Uma função scheduler que analisa a fila de tarefas prontas, devolvendo um ponteiro para a próxima tarefa a receber o processador
+    */
+}
+
+void task_set_eet (task_t *task, int et){
+    /*
+    Esta função ajusta a prioridade com base no tempo de execução total estimado para da tarefa. Caso task seja nulo, ajusta a prioridade da tarefa atual. Quando a tarefa já está eexecução, essa função deve sobrescrever tanto o valor estimado do tempo deexecução como também o valor do tempo que ainda resta para a tarefa terminarsua execução
+    */
+}
+
+int task_get_eet(task_t *task){
+    /*
+    Esta função devolve o valor do tempo estimado de execução da tarefa task (ou da tarefa corrente, se task fornulo).
+    */
+    return 1;
+}
+
+int task_get_ret(task_t *task){
+    /*
+    Esta função devolve o valor do tempo restante para terminar a execução da tarefa task (ou da tarefa corrente,se task for nulo)
+    */
+    return 1;
+}
 
