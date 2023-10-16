@@ -407,8 +407,21 @@ task_t * scheduler() {
 /* TO-DO: Tudo aqui em baixo é para moficar */
 task_t * scheduler_srtf() {
     /* TO-DO:  SRTF */
+    task_t* selectedTask = NULL;
     if ( readyQueue != NULL ) {
-        return readyQueue;
+        task_t* currTask = readyQueue;
+        selectedTask = readyQueue;
+
+        while(currTask->next != NULL){
+            currTask = currTask->next;
+
+            if(task_get_ret(currTask) < task_get_ret(selectedTask)){
+                selectedTask = currTask;
+            }
+        } 
+        
+        return selectedTask;
+
     }
     return NULL;
     /*
@@ -416,7 +429,14 @@ task_t * scheduler_srtf() {
     */
 }
 
-void task_set_eet (task_t *task, int et){
+void task_set_eet (task_t *task, int et){ // [TAREFA 1.2.1]
+
+    if(task == NULL){
+        taskExec->eet = et;
+    } else {
+        task->eet = et;
+    }
+
     /*
     Esta função ajusta a prioridade com base no tempo de execução total estimado para da tarefa. Caso task seja nulo, ajusta a prioridade da tarefa atual. Quando a tarefa já está eexecução, essa função deve sobrescrever tanto o valor estimado do tempo deexecução como também o valor do tempo que ainda resta para a tarefa terminarsua execução
     */
@@ -425,14 +445,32 @@ void task_set_eet (task_t *task, int et){
 int task_get_eet(task_t *task){
     /*
     Esta função devolve o valor do tempo estimado de execução da tarefa task (ou da tarefa corrente, se task fornulo).
+    [TAREFA 1.2.2]
     */
-    return 1;
+
+    if(task == NULL){ return taskExec-> eet; }
+
+    return task->eet;
 }
 
 int task_get_ret(task_t *task){
     /*
     Esta função devolve o valor do tempo restante para terminar a execução da tarefa task (ou da tarefa corrente,se task for nulo)
     */
-    return 1;
+    int remaining_time;
+    
+    if (task == NULL) {
+        // Se task for nulo, use a tarefa em execução atual
+        task = taskExec;
+    }
+
+    remaining_time = task->eet - task->running_time;
+    
+    // Verifique se o tempo restante é não negativo
+    if (remaining_time < 0) {
+        remaining_time = 0; // Tempo restante não pode ser negativo
+    }
+
+    return remaining_time;
 }
 
