@@ -399,7 +399,6 @@ int after_mqueue_msgs (mqueue_t *queue) {
 
 task_t * scheduler() {
     // FCFS scheduler
-    print("aqui");
     if ( readyQueue != NULL ) {
         return readyQueue;
     }
