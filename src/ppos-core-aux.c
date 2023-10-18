@@ -34,6 +34,7 @@ void before_task_create (task_t *task ) {
 
 void after_task_create (task_t *task ) {
     // put your customization here
+    task->eet = 99999; // TAREFA 1.5
 #ifdef DEBUG
     printf("\ntask_create - AFTER - [%d]", task->id);
 #endif
@@ -398,6 +399,7 @@ int after_mqueue_msgs (mqueue_t *queue) {
 
 task_t * scheduler() {
     // FCFS scheduler
+    print("aqui");
     if ( readyQueue != NULL ) {
         return readyQueue;
     }
@@ -431,6 +433,7 @@ task_t * scheduler_srtf() {
 
 void task_set_eet (task_t *task, int et){ // [TAREFA 1.2.1]
 
+    printf("Setting estimated time to: %d", et);
     if(task == NULL){
         taskExec->eet = et;
     } else {
