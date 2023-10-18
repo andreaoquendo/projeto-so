@@ -86,7 +86,7 @@ int main (int argc, char *argv[])
   // creating tasks
   for (i=0; i<USER_TASKS_MAX; i++) {
     sprintf(&user_tasks_names[i][0], "UTask[%2d]", i);
-    printf("Criando tarefa: %s\n", &user_tasks_names[i]);
+    printf("Criando tarefa: %s\n", user_tasks_names[i]);
     task_create (&user_tasks[i], Body, &user_tasks_names[i]) ;
     task_set_eet(&user_tasks[i], user_tasks_execution_time[i]);
   }
