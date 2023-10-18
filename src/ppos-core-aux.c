@@ -475,3 +475,21 @@ int task_get_ret(task_t *task){
 
     return remaining_time;
 }
+
+void task_setprio (task_t *task, int prio){
+
+    if(task == NULL){
+        task = taskExec;
+    }
+
+    task->prio = prio;
+}
+
+int task_getprio (task_t *task){
+
+    if(task == NULL){
+        task = taskExec;
+    }
+
+    return task->prio;
+}

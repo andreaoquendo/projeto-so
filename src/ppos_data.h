@@ -27,6 +27,7 @@ typedef struct task_t
    // ... (outros campos deve ser adicionados APOS esse comentario)
    int running_time; // ANDI: tempo que já rodou [TAREFA 1.3]
    int eet; // ANDI: estimated execution time [TAREFA 1.3]
+   int prio;
    
 } task_t ;
 
