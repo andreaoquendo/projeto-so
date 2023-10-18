@@ -20,7 +20,6 @@ void before_ppos_init () {
 
 void after_ppos_init () {
     // put your customization here
-    start_timer();
 #ifdef DEBUG
     printf("\ninit - AFTER");
 #endif
@@ -476,25 +475,3 @@ int task_get_ret(task_t *task){
 
     return remaining_time;
 }
-
-struct timeval start_time;
-
-void start_timer() {
-    gettimeofday(&start_time, NULL);
-}
-
-unsigned int systime() {
-    struct timeval current_time;
-    if (gettimeofday(&current_time, NULL) != 0) {
-        // Lidar com erro ao obter o tempo
-        perror("gettimeofday");
-        return 0;  // Retornar zero em caso de erro
-    }
-
-    // Calcular o tempo decorrido em microssegundos e converter para unsigned int
-    unsigned int elapsed_micros = (unsigned int)((current_time.tv_sec - start_time.tv_sec) * 1000000 +
-                                   (current_time.tv_usec - start_time.tv_usec));
-
-    return elapsed_micros;
-}
-
