@@ -399,6 +399,7 @@ int after_mqueue_msgs (mqueue_t *queue) {
 
 task_t * scheduler() {
     // FCFS scheduler
+    printf("OIIOIOIO TO AQUI OOOTARIO");
     if ( readyQueue != NULL ) {
         return readyQueue;
     }
