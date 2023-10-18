@@ -73,7 +73,11 @@ int main (int argc, char *argv[])
 
   // waiting for the first microsecond
   printf("systime: %u", systime());
-  while (systime() <= 0) ;
+  int tempo = 0;
+  while (systime() <= 0 && tempo<700) {
+    printf("systime: %u", systime());
+    tempo++;
+  }
   printf("isso daqui que nao ta funcionando?");
   // estimate how many iterations is a microsecond
   aux_time = systime() + 1;
