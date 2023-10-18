@@ -409,6 +409,7 @@ int after_mqueue_msgs (mqueue_t *queue) {
 /* TO-DO: Tudo aqui em baixo é para moficar */
 task_t * scheduler() {
     /* TO-DO:  SRTF */
+    printf("estou rodando mamain");
     task_t* selectedTask = NULL;
     if ( readyQueue != NULL ) {
         task_t* currTask = readyQueue;
