@@ -397,17 +397,17 @@ int after_mqueue_msgs (mqueue_t *queue) {
     return 0;
 }
 
-task_t * scheduler() {
-    // FCFS scheduler
-    printf("OIIOIOIO TO AQUI OOOTARIO");
-    if ( readyQueue != NULL ) {
-        return readyQueue;
-    }
-    return NULL;
-}
+// task_t * scheduler() {
+//     // FCFS scheduler
+//     printf("OIIOIOIO TO AQUI OOOTARIO");
+//     if ( readyQueue != NULL ) {
+//         return readyQueue;
+//     }
+//     return NULL;
+// }
 
 /* TO-DO: Tudo aqui em baixo é para moficar */
-task_t * scheduler_srtf() {
+task_t * scheduler() {
     /* TO-DO:  SRTF */
     task_t* selectedTask = NULL;
     if ( readyQueue != NULL ) {
