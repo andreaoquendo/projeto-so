@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/time.h>
 
 // Interface do núcleo para as aplicações
 #ifndef __PPOS__
@@ -110,6 +111,7 @@ task_t* scheduler_srtf();
 void task_set_eet (task_t *task, int et);
 int task_get_eet(task_t *task);
 int task_get_ret(task_t *task);
+void start_timer();
 
 // operações de gestão do tempo ================================================
 
