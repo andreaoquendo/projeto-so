@@ -11,7 +11,7 @@
 
 //task_t Pang, Peng, Ping, Pong, Pung ;
 
-#define USER_TASKS_MAX 5
+#define USER_TASKS_MAX 10
 task_t user_tasks[USER_TASKS_MAX];
 char user_tasks_names[USER_TASKS_MAX][15];
 //int user_tasks_execution_time[USER_TASKS_MAX] = {100, 200, 300, 400, 500, 600, 700, 800, 900, 1000}; // cenario 1
