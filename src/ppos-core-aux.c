@@ -69,7 +69,7 @@ void after_task_switch ( task_t *task ) {
 }
 
 void before_task_yield () {
-    printf("running time: %d", taskExec->running_time);
+    printf("running time: %d\n", taskExec->running_time);
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_yield - BEFORE - [%d]", taskExec->id);
@@ -77,7 +77,7 @@ void before_task_yield () {
 }
 void after_task_yield () {
     taskExec->running_time-=5;
-    printf("running time: %d", taskExec->running_time);
+    printf("running time: %d\n\n", taskExec->running_time);
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_yield - AFTER - [%d]", taskExec->id);
