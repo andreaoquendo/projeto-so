@@ -126,7 +126,7 @@ void after_task_sleep () {
 
 int before_task_join (task_t *task) {
     // put your customization here
-    printf("\neet: %d", task_get_eet(task));
+    printf("eet of task id %d: %d\n", task->id, task_get_eet(task));
 #ifdef DEBUG
     printf("\ntask_join - BEFORE - [%d]", taskExec->id);
 #endif
@@ -434,7 +434,7 @@ task_t * scheduler() {
 
 void task_set_eet (task_t *task, int et){ // [TAREFA 1.2.1]
 
-    printf("\nSetting estimated time to: %d", et);
+    printf("Setting estimated time to: %d\n", et);
     if(task == NULL){
         taskExec->eet = et;
     } else {

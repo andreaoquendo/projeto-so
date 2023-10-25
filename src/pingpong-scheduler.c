@@ -42,15 +42,15 @@ int main (int argc, char *argv[])
 
   task_create (&Ping, Body, "task C") ;
   task_setprio (&Ping, 4);
-  task_set_eet(&Pang, 20);
+  task_set_eet(&Ping, 20);
 
   task_create (&Pong, Body, "task D") ;
   task_setprio (&Pong, 6);
-  task_set_eet(&Pang, 40);
+  task_set_eet(&Pong, 40);
 
   task_create (&Pung, Body, "task E") ;
   task_setprio (&Pung, 8);
-  task_set_eet(&Pang, 15);
+  task_set_eet(&Pung, 15);
 
   task_join(&Pang);
   task_join(&Peng);
