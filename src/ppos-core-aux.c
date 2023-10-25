@@ -35,6 +35,7 @@ void before_task_create (task_t *task ) {
 void after_task_create (task_t *task ) {
     // put your customization here
     task->eet = 99999; // TAREFA 1.5
+    task->running_time = 0;
 #ifdef DEBUG
     printf("\ntask_create - AFTER - [%d]", task->id);
 #endif
@@ -75,7 +76,7 @@ void before_task_yield () {
 #endif
 }
 void after_task_yield () {
-    printf("task yield\n");
+    taskExec->running_time+=5;
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_yield - AFTER - [%d]", taskExec->id);
