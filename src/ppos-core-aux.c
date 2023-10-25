@@ -411,16 +411,19 @@ task_t * scheduler() {
     /* TO-DO:  SRTF */
     printf("estou rodando mamain");
     task_t* selectedTask = NULL;
+    int aux = 0;
     if ( readyQueue != NULL ) {
         task_t* currTask = readyQueue;
         selectedTask = readyQueue;
 
-        while(currTask->next != NULL){
+        while(currTask->next != readyQueue){
+            printf("task: %d", aux);
             currTask = currTask->next;
 
             if(task_get_ret(currTask) < task_get_ret(selectedTask)){
                 selectedTask = currTask;
             }
+            aux++;
         } 
         
         return selectedTask;
