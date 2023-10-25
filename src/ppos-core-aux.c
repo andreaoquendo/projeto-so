@@ -55,27 +55,27 @@ void after_task_exit () {
 }
 
 void before_task_switch ( task_t *task ) {
-    printf("task switch\n");
 #ifdef DEBUG
     printf("\ntask_switch - BEFORE - [%d -> %d]", taskExec->id, task->id);
 #endif
 }
 
 void after_task_switch ( task_t *task ) {
-    // put your customization here
+    printf("task switch\n");
 #ifdef DEBUG
     printf("\ntask_switch - AFTER - [%d -> %d]", taskExec->id, task->id);
 #endif
 }
 
 void before_task_yield () {
-    printf("task yield\n");
+    
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_yield - BEFORE - [%d]", taskExec->id);
 #endif
 }
 void after_task_yield () {
+    printf("task yield\n");
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_yield - AFTER - [%d]", taskExec->id);
@@ -84,7 +84,7 @@ void after_task_yield () {
 
 
 void before_task_suspend( task_t *task ) {
-    printf("task suspend\n");
+    
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_suspend - BEFORE - [%d]", task->id);
@@ -92,6 +92,7 @@ void before_task_suspend( task_t *task ) {
 }
 
 void after_task_suspend( task_t *task ) {
+    printf("task suspend\n");
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_suspend - AFTER - [%d]", task->id);
@@ -99,7 +100,7 @@ void after_task_suspend( task_t *task ) {
 }
 
 void before_task_resume(task_t *task) {
-    printf("task resume\n");
+    
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_resume - BEFORE - [%d]", task->id);
@@ -107,6 +108,7 @@ void before_task_resume(task_t *task) {
 }
 
 void after_task_resume(task_t *task) {
+    printf("task resume\n");
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_resume - AFTER - [%d]", task->id);
