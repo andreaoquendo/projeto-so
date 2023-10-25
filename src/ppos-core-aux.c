@@ -434,7 +434,7 @@ task_t * scheduler() {
 
 void task_set_eet (task_t *task, int et){ // [TAREFA 1.2.1]
 
-    printf("Setting estimated time to: %d", et);
+    printf("\nSetting estimated time to: %d", et);
     if(task == NULL){
         taskExec->eet = et;
     } else {

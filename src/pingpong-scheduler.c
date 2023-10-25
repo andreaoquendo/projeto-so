@@ -32,23 +32,23 @@ int main (int argc, char *argv[])
 
   ppos_init () ;
 
-  task_create (&Pang, Body, "    Pang") ;
+  task_create (&Pang, Body, "task A") ;
   task_setprio (&Pang, 0);
   task_set_eet(&Pang, 10);
 
-  task_create (&Peng, Body, "        Peng") ;
+  task_create (&Peng, Body, "task B") ;
   task_setprio (&Peng, 2);
   task_set_eet(&Peng, 30);
 
-  task_create (&Ping, Body, "            Ping") ;
+  task_create (&Ping, Body, "task C") ;
   task_setprio (&Ping, 4);
   task_set_eet(&Pang, 20);
 
-  task_create (&Pong, Body, "                Pong") ;
+  task_create (&Pong, Body, "task D") ;
   task_setprio (&Pong, 6);
   task_set_eet(&Pang, 40);
 
-  task_create (&Pung, Body, "                    Pung") ;
+  task_create (&Pung, Body, "task E") ;
   task_setprio (&Pung, 8);
   task_set_eet(&Pang, 15);
 
