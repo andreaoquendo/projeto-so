@@ -411,6 +411,8 @@ int after_mqueue_msgs (mqueue_t *queue) {
 task_t * scheduler() {
     /* TO-DO:  SRTF */
     task_t* selectedTask = NULL;
+
+    printf("---- SCHEDULER CHAMADO  ------\n")
     if ( readyQueue != NULL ) {
         task_t* currTask = readyQueue;
         selectedTask = readyQueue;
