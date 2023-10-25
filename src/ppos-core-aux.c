@@ -55,7 +55,7 @@ void after_task_exit () {
 }
 
 void before_task_switch ( task_t *task ) {
-    print("task switch\n");
+    printf("task switch\n");
 #ifdef DEBUG
     printf("\ntask_switch - BEFORE - [%d -> %d]", taskExec->id, task->id);
 #endif
@@ -69,7 +69,7 @@ void after_task_switch ( task_t *task ) {
 }
 
 void before_task_yield () {
-    print("task yield\n");
+    printf("task yield\n");
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_yield - BEFORE - [%d]", taskExec->id);
@@ -84,7 +84,7 @@ void after_task_yield () {
 
 
 void before_task_suspend( task_t *task ) {
-    print("task suspend\n");
+    printf("task suspend\n");
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_suspend - BEFORE - [%d]", task->id);
@@ -99,7 +99,7 @@ void after_task_suspend( task_t *task ) {
 }
 
 void before_task_resume(task_t *task) {
-    print("task resume\n");
+    printf("task resume\n");
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_resume - BEFORE - [%d]", task->id);
@@ -416,10 +416,6 @@ task_t * scheduler() {
 
             if(task_get_ret(currTask) < task_get_ret(selectedTask)){
                 selectedTask = currTask;
-            }
-
-            if(task_get_ret(currTask) == 0){
-                task_exit(currTask);
             }
         } 
         
