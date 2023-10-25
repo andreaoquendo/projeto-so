@@ -76,7 +76,7 @@ void before_task_yield () {
 #endif
 }
 void after_task_yield () {
-    taskExec->running_time+=5;
+    taskExec->running_time-=5;
     printf("running time: %d", taskExec->running_time);
     // put your customization here
 #ifdef DEBUG
