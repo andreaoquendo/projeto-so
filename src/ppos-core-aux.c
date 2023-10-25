@@ -471,7 +471,7 @@ int task_get_ret(task_t *task){
     
     // Verifique se o tempo restante é não negativo
     if (remaining_time < 0) {
-        remaining_time = 0; // Tempo restante não pode ser negativo
+        remaining_time = 9999; // Tempo restante não pode ser negativo
     }
 
     return remaining_time;
