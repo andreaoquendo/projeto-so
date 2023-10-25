@@ -126,6 +126,7 @@ void after_task_sleep () {
 
 int before_task_join (task_t *task) {
     // put your customization here
+    printf("\neet: %d", task_get_eet(task));
 #ifdef DEBUG
     printf("\ntask_join - BEFORE - [%d]", taskExec->id);
 #endif
@@ -409,21 +410,17 @@ int after_mqueue_msgs (mqueue_t *queue) {
 /* TO-DO: Tudo aqui em baixo é para moficar */
 task_t * scheduler() {
     /* TO-DO:  SRTF */
-    printf("estou rodando mamain");
     task_t* selectedTask = NULL;
-    int aux = 0;
     if ( readyQueue != NULL ) {
         task_t* currTask = readyQueue;
         selectedTask = readyQueue;
 
         while(currTask->next != readyQueue){
-            printf("task: %d", aux);
             currTask = currTask->next;
 
             if(task_get_ret(currTask) < task_get_ret(selectedTask)){
                 selectedTask = currTask;
             }
-            aux++;
         } 
         
         return selectedTask;
