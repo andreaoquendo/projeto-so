@@ -55,7 +55,7 @@ void after_task_exit () {
 }
 
 void before_task_switch ( task_t *task ) {
-    // put your customization here
+    print("task switch\n");
 #ifdef DEBUG
     printf("\ntask_switch - BEFORE - [%d -> %d]", taskExec->id, task->id);
 #endif
@@ -69,6 +69,7 @@ void after_task_switch ( task_t *task ) {
 }
 
 void before_task_yield () {
+    print("task yield\n");
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_yield - BEFORE - [%d]", taskExec->id);
@@ -83,6 +84,7 @@ void after_task_yield () {
 
 
 void before_task_suspend( task_t *task ) {
+    print("task suspend\n");
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_suspend - BEFORE - [%d]", task->id);
@@ -97,6 +99,7 @@ void after_task_suspend( task_t *task ) {
 }
 
 void before_task_resume(task_t *task) {
+    print("task resume\n");
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_resume - BEFORE - [%d]", task->id);
@@ -398,15 +401,6 @@ int after_mqueue_msgs (mqueue_t *queue) {
     return 0;
 }
 
-// task_t * scheduler() {
-//     // FCFS scheduler
-//     printf("OIIOIOIO TO AQUI OOOTARIO");
-//     if ( readyQueue != NULL ) {
-//         return readyQueue;
-//     }
-//     return NULL;
-// }
-
 /* TO-DO: Tudo aqui em baixo é para moficar */
 task_t * scheduler() {
     /* TO-DO:  SRTF */
@@ -422,6 +416,10 @@ task_t * scheduler() {
 
             if(task_get_ret(currTask) < task_get_ret(selectedTask)){
                 selectedTask = currTask;
+            }
+
+            if(task_get_ret(currTask) == 0){
+                task_exit(currTask);
             }
         } 
         
