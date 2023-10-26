@@ -44,7 +44,7 @@ void after_ppos_init () {
         exit (1) ;
     }
 
-    quantum_timer = TASK_TICKS;
+    quantum = TASK_TICKS;
     
 #ifdef DEBUG
     printf("\ninit - AFTER");
@@ -527,11 +527,11 @@ int task_getprio (task_t *task){
 void tratador_timer(int signum){
     taskExec->running_time+=1;
     
-    if(quantum_timer <= 0){
-        quantum_timer = TASK_TICKS;
+    if(quantum <= 0){
+        quantum = TASK_TICKS;
         printf("\nHORA DE MUDAR\n");
     } else {
-        quantum_timer--;
+        quantum--;
     }
 
     printf ("Recebi o sinal %d\n", signum) ;

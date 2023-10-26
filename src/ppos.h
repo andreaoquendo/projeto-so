@@ -228,9 +228,9 @@ void print_tcb( task_t* task );
 
 // TASK 2: TIMERS
 
-struct sigaction action ;
-struct itimerval timer ;
-int quantum_timer;
+// struct sigaction action ;
+// struct itimerval timer ;
+int quantum;
 
 // tratador do sinal
 void tratador_timer(int signum);
