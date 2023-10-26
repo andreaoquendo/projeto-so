@@ -455,6 +455,8 @@ int after_mqueue_msgs (mqueue_t *queue) {
 task_t * scheduler() {
     task_t* selectedTask = NULL;
 
+    printf("\nENTROU NO SCHEDULER\n");
+
     if(call_scheduler == 0){ return taskExec; }
 
     if ( readyQueue != NULL ) {
@@ -564,12 +566,13 @@ void tratador_timer(int signum){
         call_scheduler = 0;
     } else {
         if(taskExec->state == 'e'){
-            
             quantum = TASK_TICKS;
             printf("\nquantum MODIFIED: %d\n", quantum);
             call_scheduler = 1;
             printf("----TICK----\n");
             task_yield();
+            // task_t newTask = scheduler();
+
             
             call_scheduler = 0;
         }
