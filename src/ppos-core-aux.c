@@ -454,7 +454,7 @@ int after_mqueue_msgs (mqueue_t *queue) {
 */
 task_t * scheduler() {
     task_t* selectedTask = NULL;
-    
+
     if(call_scheduler == 0){ return taskExec; }
 
     printf("\nENTROU NO SCHEDULER\n");
@@ -571,7 +571,8 @@ void tratador_timer(int signum){
             call_scheduler = 1;
             printf("----TICK----\n");
             task_yield();
-            // task_t newTask = scheduler();
+            task_t* newTask = scheduler();
+            task_switch(newTask);
 
             
             call_scheduler = 0;
