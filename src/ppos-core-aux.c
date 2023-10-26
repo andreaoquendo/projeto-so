@@ -455,9 +455,9 @@ int after_mqueue_msgs (mqueue_t *queue) {
 task_t * scheduler() {
     task_t* selectedTask = NULL;
 
-    if(call_scheduler == 0){ return taskExec; }
+    // if(call_scheduler == 0){ return taskExec; }
 
-    printf("\nENTROU NO SCHEDULER\n");
+    // printf("\nENTROU NO SCHEDULER\n");
 
     if ( readyQueue != NULL ) {
         task_t* currTask = readyQueue;
@@ -543,42 +543,40 @@ int task_getprio (task_t *task){
 }
 
 void tratador_timer(int signum){
-    taskExec->running_time+=1;
+    // taskExec->running_time+=1;
 
-    printf("\nquantum: %d\n", quantum);
+    // printf("\nquantum: %d\n", quantum);
 
-    if(taskExec != NULL){
-        printf("\n task exec [%d]'s status is %c \n", taskExec->id, taskExec->state);
-    } else {
-        printf("\n task exec is null \n");
-    }
+    // if(taskExec != NULL){
+    //     printf("\n task exec [%d]'s status is %c \n", taskExec->id, taskExec->state);
+    // } else {
+    //     printf("\n task exec is null \n");
+    // }
     
-    if(quantum <= 0){
-        quantum = TASK_TICKS;
-        if(taskExec->state != 'e' && taskExec->type == 0 ) { 
-            printf("got here");
-            return; 
-        }
-        call_scheduler = 1;
-        printf("----TICK----\n");
-        task_yield();
+    // if(quantum <= 0){
+    //     quantum = TASK_TICKS;
+    //     printf("\nmodified quantum: %d\n", quantum);
+    //     if(taskExec->state != 'e' && taskExec->id < 2 ) { return; }
+    //     call_scheduler = 1;
+    //     printf("----TICK----\n");
+    //     task_yield();
         
-        call_scheduler = 0;
-    } else {
-        if(taskExec->state == 'e'){
-            quantum = TASK_TICKS;
-            printf("\nquantum MODIFIED: %d\n", quantum);
-            call_scheduler = 1;
-            printf("----TICK----\n");
-            task_yield();
-            task_t* newTask = scheduler();
-            task_switch(newTask);
+    //     call_scheduler = 0;
+    // } else {
+    //     if(taskExec->state == 'e'){
+    //         quantum = TASK_TICKS;
+    //         printf("\nquantum MODIFIED: %d\n", quantum);
+    //         call_scheduler = 1;
+    //         printf("----TICK----\n");
+    //         task_yield();
+    //         task_t* newTask = scheduler();
+    //         task_switch(newTask);
 
             
-            call_scheduler = 0;
-        }
-        quantum--;
-    }
+    //         call_scheduler = 0;
+    //     }
+    //     quantum--;
+    // }
 }
 
 void task_settype(task_t *task, int type){
