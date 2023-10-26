@@ -465,7 +465,7 @@ task_t * scheduler() {
 
         while(currTask->next != readyQueue){  
             currTask = currTask->next;
-            // printf("\ngoing through task [%d]", currTask->id);
+            printf("\ngoing through task [%d]", currTask->id);
 
             if(task_get_ret(currTask) < task_get_ret(selectedTask)){
                 selectedTask = currTask;
