@@ -38,11 +38,11 @@ int main (int argc, char *argv[])
 
   task_create (&Peng, Body, "task B") ;
   task_setprio (&Peng, 2);
-  task_set_eet(&Peng, 30);
+  task_set_eet(&Peng, 35);
 
   task_create (&Ping, Body, "task C") ;
   task_setprio (&Ping, 4);
-  task_set_eet(&Ping, 20);
+  task_set_eet(&Ping, 30);
 
   task_create (&Pong, Body, "task D") ;
   task_setprio (&Pong, 6);

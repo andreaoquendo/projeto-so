@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <signal.h> // TASK 2
 
 // Interface do núcleo para as aplicações
 #ifndef __PPOS__
@@ -224,6 +225,17 @@ int after_mqueue_msgs (mqueue_t *queue) ;
 void print_tcb( task_t* task );
 
 //==============================================================================
+
+// TASK 2: TIMERS
+
+struct sigaction action ;
+struct itimerval timer ;
+
+// tratador do sinal
+void tratador_timer(int signum);
+#define PROJECT_CLOCK           2
+
+// ======================
 
 // Redefinir funcoes POSIX "proibidas" como "FORBIDDEN" (gera erro ao compilar)
 
