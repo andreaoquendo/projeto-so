@@ -230,10 +230,12 @@ void print_tcb( task_t* task );
 
 struct sigaction action ;
 struct itimerval timer ;
+int quantum_timer;
 
 // tratador do sinal
 void tratador_timer(int signum);
 #define PROJECT_CLOCK           2
+#define TASK_TICKS              20
 
 // ======================
 

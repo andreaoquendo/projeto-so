@@ -20,6 +20,8 @@ void before_ppos_init () {
 
 void after_ppos_init () {
     // TASK 2
+
+
     action.sa_handler = tratador_timer ;
     sigemptyset (&action.sa_mask) ;
     action.sa_flags = 0 ;
@@ -41,6 +43,8 @@ void after_ppos_init () {
         perror ("Erro em setitimer: ") ;
         exit (1) ;
     }
+
+    quantum_timer = TASK_TICKS;
     
 #ifdef DEBUG
     printf("\ninit - AFTER");
@@ -521,5 +525,14 @@ int task_getprio (task_t *task){
 }
 
 void tratador_timer(int signum){
+    taskExec->running_time+=1;
+    
+    if(quantum_timer <= 0){
+        quantum_timer = TASK_TICKS;
+        printf("\nHORA DE MUDAR\n");
+    } else {
+        quantum_timer--;
+    }
+
     printf ("Recebi o sinal %d\n", signum) ;
 }
