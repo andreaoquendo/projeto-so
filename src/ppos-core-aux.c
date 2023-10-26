@@ -463,7 +463,7 @@ task_t * scheduler() {
         task_t* currTask = readyQueue;
         selectedTask = readyQueue;
 
-        while(currTask->next != readyQueue){
+        while(currTask->next != readyQueue){  
             currTask = currTask->next;
             printf("\ngoing through task [%d]", currTask->id);
 
@@ -473,6 +473,8 @@ task_t * scheduler() {
         } 
         
         call_scheduler = 0;
+        printf("\nselected task's status is: %c", selectedTask
+        ->state);
         return selectedTask;
 
     }
