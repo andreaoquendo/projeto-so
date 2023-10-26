@@ -5,12 +5,14 @@
 // ****************************************************************************
 // Coloque aqui as suas modificações, p.ex. includes, defines variáveis, 
 // estruturas e funções
-#define PROJECT_CLOCK           2
-#define TASK_TICKS              10
+#define PROJECT_SECONDS_CLOCK                0
+#define PROJECT_MILISSECONDS_CLOCK           2
+#define TASK_TICKS                           20
 
 struct sigaction action ;
 struct itimerval timer ;
 int quantum;
+int call_scheduler;
 // ****************************************************************************
 
 
@@ -24,7 +26,7 @@ void before_ppos_init () {
 
 void after_ppos_init () {
     // TASK 2
-
+    call_scheduler = 0;
 
     action.sa_handler = tratador_timer ;
     sigemptyset (&action.sa_mask) ;
@@ -38,8 +40,8 @@ void after_ppos_init () {
     // ajusta valores do temporizador
     timer.it_value.tv_usec = 0 ;      // primeiro disparo, em micro-segundos
     timer.it_value.tv_sec  = 3 ;      // primeiro disparo, em segundos
-    timer.it_interval.tv_usec = 0 ;   // disparos subsequentes, em micro-segundos
-    timer.it_interval.tv_sec  = PROJECT_CLOCK ;   // disparos subsequentes, em segundos
+    timer.it_interval.tv_usec = PROJECT_MILISSECONDS_CLOCK ;   // disparos subsequentes, em micro-segundos
+    timer.it_interval.tv_sec  = PROJECT_SECONDS_CLOCK ;   // disparos subsequentes, em segundos
 
     // arma o temporizador ITIMER_REAL (vide man setitimer)
     if (setitimer (ITIMER_REAL, &timer, 0) < 0)
@@ -445,7 +447,7 @@ int after_mqueue_msgs (mqueue_t *queue) {
 task_t * scheduler() {
     task_t* selectedTask = NULL;
 
-    if(quantum != 0){ return taskExec; }
+    if(call_scheduler == 0){ return taskExec; }
 
     if ( readyQueue != NULL ) {
         task_t* currTask = readyQueue;
@@ -536,8 +538,11 @@ void tratador_timer(int signum){
     taskExec->running_time+=1;
     
     if(quantum <= 0){
-        quantum = TASK_TICKS;
+        call_scheduler = 1;
         printf("\nHORA DE MUDAR\n");
+        taskExec = scheduler();
+        quantum = TASK_TICKS;
+        call_scheduler = 0;
     } else {
         quantum--;
     }
