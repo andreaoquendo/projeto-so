@@ -552,11 +552,12 @@ void tratador_timer(int signum){
     }
     
     if(quantum <= 0){
+        quantum = TASK_TICKS;
         if(taskExec->type == 0) { return; }
         call_scheduler = 1;
         printf("----TICK----\n");
         task_yield();
-        quantum = TASK_TICKS;
+        
         call_scheduler = 0;
     } else {
         quantum--;
