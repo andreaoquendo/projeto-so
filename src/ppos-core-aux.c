@@ -454,10 +454,10 @@ int after_mqueue_msgs (mqueue_t *queue) {
 */
 task_t * scheduler() {
     task_t* selectedTask = NULL;
+    
+    if(call_scheduler == 0){ return taskExec; }
 
     printf("\nENTROU NO SCHEDULER\n");
-
-    if(call_scheduler == 0){ return taskExec; }
 
     if ( readyQueue != NULL ) {
         task_t* currTask = readyQueue;
