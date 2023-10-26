@@ -457,7 +457,7 @@ task_t * scheduler() {
 
     // if(call_scheduler == 0){ return taskExec; }
 
-    // printf("\nscheduler\n");
+    printf("\nscheduler\n");
 
     if ( readyQueue != NULL ) {
         task_t* currTask = readyQueue;
