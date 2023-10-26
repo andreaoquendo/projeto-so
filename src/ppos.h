@@ -226,19 +226,6 @@ void print_tcb( task_t* task );
 
 //==============================================================================
 
-// TASK 2: TIMERS
-
-struct sigaction action ;
-struct itimerval timer ;
-int quantum;
-
-// tratador do sinal
-void tratador_timer(int signum);
-#define PROJECT_CLOCK           2
-#define TASK_TICKS              20
-
-// ======================
-
 // Redefinir funcoes POSIX "proibidas" como "FORBIDDEN" (gera erro ao compilar)
 
 // POSIX threads
