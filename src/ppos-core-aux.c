@@ -466,7 +466,7 @@ task_t * scheduler() {
         while(currTask->next != readyQueue){
             currTask = currTask->next;
 
-            if(task_get_ret(currTask) < task_get_ret(selectedTask)){
+            if(task_get_ret(currTask) <= task_get_ret(selectedTask)){
                 selectedTask = currTask;
             }
         } 
@@ -475,6 +475,7 @@ task_t * scheduler() {
         return selectedTask;
 
     }
+    printf("ready queue is null!!");
     call_scheduler = 0;
     return NULL;
    
