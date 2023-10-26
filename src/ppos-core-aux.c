@@ -455,7 +455,7 @@ int after_mqueue_msgs (mqueue_t *queue) {
 task_t * scheduler() {
     task_t* selectedTask = NULL;
 
-    // if(call_scheduler == 0){ return taskExec; }
+    if(call_scheduler == 0){ return taskExec; }
 
     printf("\nscheduler\n");
 
@@ -473,7 +473,7 @@ task_t * scheduler() {
         } 
         
         call_scheduler = 0;
-        printf("\nselected task's status is: %c", selectedTask
+        printf("\nselected task's [%d] status is: %c", taskExec->id, selectedTask
         ->state);
         return selectedTask;
 
@@ -549,9 +549,10 @@ int task_getprio (task_t *task){
 }
 
 void tratador_timer(int signum){
-    // call_scheduler = 1;
-    // task_t* newTask = scheduler();
-    // task_switch(newTask);
+    call_scheduler = 1;
+    task_yield();
+    task_t* newTask = scheduler();
+    task_switch(newTask);
     
     // taskExec->running_time+=1;
 
