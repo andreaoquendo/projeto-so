@@ -543,6 +543,8 @@ int task_getprio (task_t *task){
 void tratador_timer(int signum){
     taskExec->running_time+=1;
 
+    printf("\nquantum: %d\n", quantum);
+
     if(taskExec != NULL){
         printf("\n task exec [%d] is running \n", taskExec->id);
     } else {
