@@ -58,7 +58,7 @@ void after_ppos_init () {
 }
 
 void before_task_create (task_t *task ) {
-    printf("\ntask_create - BEFORE - [%d]", task->id);
+    // printf("\ntask_create - BEFORE - [%d]", task->id);
 #ifdef DEBUG
     printf("\ntask_create - BEFORE - [%d]", task->id);
 #endif
@@ -68,7 +68,7 @@ void after_task_create (task_t *task ) {
     // put your customization here
     task->eet = 99999; // TAREFA 1.5
     task->running_time = 0;
-    printf("\ntask_create - AFTER - [%d]", task->id);
+    // printf("\ntask_create - AFTER - [%d]", task->id);
 
 #ifdef DEBUG
     printf("\ntask_create - AFTER - [%d]", task->id);
@@ -77,7 +77,7 @@ void after_task_create (task_t *task ) {
 
 void before_task_exit () {
     // put your customization here
-    printf("\ntask_exit - BEFORE - [%d]", taskExec->id);
+    // printf("\ntask_exit - BEFORE - [%d]", taskExec->id);
 #ifdef DEBUG
     printf("\ntask_exit - BEFORE - [%d]", taskExec->id);
 #endif
@@ -85,7 +85,7 @@ void before_task_exit () {
 
 void after_task_exit () {
     // put your customization here
-    printf("\ntask_exit - AFTER- [%d]", taskExec->id);
+    // printf("\ntask_exit - AFTER- [%d]", taskExec->id);
 
 #ifdef DEBUG
     printf("\ntask_exit - AFTER- [%d]", taskExec->id);
@@ -93,7 +93,7 @@ void after_task_exit () {
 }
 
 void before_task_switch ( task_t *task ) {
-    printf("\ntask_switch - BEFORE - [%d -> %d]", taskExec->id, task->id);
+    // printf("\ntask_switch - BEFORE - [%d -> %d]", taskExec->id, task->id);
 #ifdef DEBUG
     printf("\ntask_switch - BEFORE - [%d -> %d]", taskExec->id, task->id);
 #endif
@@ -101,20 +101,20 @@ void before_task_switch ( task_t *task ) {
 
 void after_task_switch ( task_t *task ) {
     // printf("task switch\n");
-    printf("\ntask_switch - AFTER - [%d -> %d]", taskExec->id, task->id);
+    // printf("\ntask_switch - AFTER - [%d -> %d]", taskExec->id, task->id);
 #ifdef DEBUG
     printf("\ntask_switch - AFTER - [%d -> %d]", taskExec->id, task->id);
 #endif
 }
 
 void before_task_yield () {
-    printf("task_yield - BEFORE - [%d]\n", taskExec->id);
+    // printf("task_yield - BEFORE - [%d]\n", taskExec->id);
 #ifdef DEBUG
     printf("\ntask_yield - BEFORE - [%d]", taskExec->id);
 #endif
 }
 void after_task_yield () {
-    printf("task_yield - AFTER - [%d]\n", taskExec->id);
+    // printf("task_yield - AFTER - [%d]\n", taskExec->id);
     // taskExec->running_time+=5;
     // printf("running time: %d\n", taskExec->running_time);
     // printf("task %d ret is: %d\n\n", taskExec->id, task_get_ret(NULL));
@@ -126,7 +126,7 @@ void after_task_yield () {
 
 
 void before_task_suspend( task_t *task ) {
-    printf("\ntask_suspend - BEFORE - [%d]", task->id);
+    // printf("\ntask_suspend - BEFORE - [%d]", task->id);
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_suspend - BEFORE - [%d]", task->id);
@@ -134,7 +134,7 @@ void before_task_suspend( task_t *task ) {
 }
 
 void after_task_suspend( task_t *task ) {
-    printf("\ntask_suspend - AFTER - [%d]", task->id);
+    // printf("\ntask_suspend - AFTER - [%d]", task->id);
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_suspend - AFTER - [%d]", task->id);
@@ -142,7 +142,7 @@ void after_task_suspend( task_t *task ) {
 }
 
 void before_task_resume(task_t *task) {
-    printf("\ntask_resume - BEFORE - [%d]", task->id);
+    // printf("\ntask_resume - BEFORE - [%d]", task->id);
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_resume - BEFORE - [%d]", task->id);
@@ -150,7 +150,7 @@ void before_task_resume(task_t *task) {
 }
 
 void after_task_resume(task_t *task) {
-    printf("\ntask_resume - AFTER - [%d]", task->id);
+    // printf("\ntask_resume - AFTER - [%d]", task->id);
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_resume - AFTER - [%d]", task->id);
@@ -158,7 +158,7 @@ void after_task_resume(task_t *task) {
 }
 
 void before_task_sleep () {
-    printf("\ntask_sleep - BEFORE - [%d]", taskExec->id);
+    // printf("\ntask_sleep - BEFORE - [%d]", taskExec->id);
 #ifdef DEBUG
     printf("\ntask_sleep - BEFORE - [%d]", taskExec->id);
 #endif
@@ -166,7 +166,7 @@ void before_task_sleep () {
 
 void after_task_sleep () {
     // put your customization here
-    printf("\ntask_sleep - AFTER - [%d]", taskExec->id);
+    // printf("\ntask_sleep - AFTER - [%d]", taskExec->id);
 #ifdef DEBUG
     printf("\ntask_sleep - AFTER - [%d]", taskExec->id);
 #endif
@@ -174,7 +174,7 @@ void after_task_sleep () {
 
 int before_task_join (task_t *task) {
     // put your customization here
-    printf("eet of task id %d: %d\n", task->id, task_get_eet(task));
+    // printf("eet of task id %d: %d\n", task->id, task_get_eet(task));
 #ifdef DEBUG
     printf("\ntask_join - BEFORE - [%d]", taskExec->id);
 #endif
@@ -183,7 +183,7 @@ int before_task_join (task_t *task) {
 
 int after_task_join (task_t *task) {
     // put your customization here
-     printf("\ntask_join - AFTER - [%d]", taskExec->id);
+    //  printf("\ntask_join - AFTER - [%d]", taskExec->id);
 #ifdef DEBUG
     printf("\ntask_join - AFTER - [%d]", taskExec->id);
 #endif
@@ -455,7 +455,7 @@ int after_mqueue_msgs (mqueue_t *queue) {
 task_t * scheduler() {
     task_t* selectedTask = NULL;
 
-    // if(call_scheduler == 0){ return taskExec; }
+    if(call_scheduler == 0){ return taskExec; }
 
     if ( readyQueue != NULL ) {
         task_t* currTask = readyQueue;
@@ -542,14 +542,27 @@ int task_getprio (task_t *task){
 
 void tratador_timer(int signum){
     taskExec->running_time+=1;
+
+    if(taskExec != NULL){
+        printf("\n task exec [%d] is running \n", taskExec->id);
+    } else {
+        printf("\n task exec is null \n");
+    }
     
     if(quantum <= 0){
+        if(taskExec->type == 0) { return; }
         call_scheduler = 1;
         printf("----TICK----\n");
-        // task_yield();
+        task_yield();
         quantum = TASK_TICKS;
         call_scheduler = 0;
     } else {
         quantum--;
     }
+}
+
+void task_settype(task_t *task, int type){
+    if (task == NULL) { return;}
+
+    task->type = type;
 }

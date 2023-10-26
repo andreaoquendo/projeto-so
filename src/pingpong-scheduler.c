@@ -34,23 +34,23 @@ int main (int argc, char *argv[])
 
   task_create (&Pang, Body, "task A") ;
   task_setprio (&Pang, 0);
-  task_set_eet(&Pang, 10);
+  // task_set_eet(&Pang, 10);
 
   task_create (&Peng, Body, "task B") ;
   task_setprio (&Peng, 2);
-  task_set_eet(&Peng, 35);
+  // task_set_eet(&Peng, 35);
 
   task_create (&Ping, Body, "task C") ;
   task_setprio (&Ping, 4);
-  task_set_eet(&Ping, 30);
+  // task_set_eet(&Ping, 30);
 
   task_create (&Pong, Body, "task D") ;
   task_setprio (&Pong, 6);
-  task_set_eet(&Pong, 40);
+  // task_set_eet(&Pong, 40);
 
   task_create (&Pung, Body, "task E") ;
   task_setprio (&Pung, 8);
-  task_set_eet(&Pung, 15);
+  // task_set_eet(&Pung, 15);
 
   task_join(&Pang);
   task_join(&Peng);
