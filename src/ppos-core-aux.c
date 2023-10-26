@@ -553,7 +553,10 @@ void tratador_timer(int signum){
     
     if(quantum <= 0){
         quantum = TASK_TICKS;
-        if(taskExec->type == 0) { return; }
+        if(taskExec->state != 'e' && taskExec->type == 0 ) { 
+            print("got here");
+            return; 
+        }
         call_scheduler = 1;
         printf("----TICK----\n");
         task_yield();
