@@ -5,8 +5,8 @@
 // ****************************************************************************
 // Coloque aqui as suas modificações, p.ex. includes, defines variáveis, 
 // estruturas e funções
-#define PROJECT_SECONDS_CLOCK                0
-#define PROJECT_MILISSECONDS_CLOCK           2
+#define PROJECT_SECONDS_CLOCK                1
+#define PROJECT_MILISSECONDS_CLOCK           0
 #define TASK_TICKS                           20
 
 struct sigaction action ;
@@ -460,8 +460,6 @@ task_t * scheduler() {
                 selectedTask = currTask;
             }
         } 
-
-        if(quantum == 0){ quantum = TASK_TICKS; }
         
         return selectedTask;
 
@@ -539,7 +537,7 @@ void tratador_timer(int signum){
     
     if(quantum <= 0){
         call_scheduler = 1;
-        printf("\nHORA DE MUDAR\n");
+        printf("----TICK----\n");
         taskExec = scheduler();
         quantum = TASK_TICKS;
         call_scheduler = 0;
