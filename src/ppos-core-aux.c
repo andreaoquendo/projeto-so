@@ -102,16 +102,16 @@ void after_task_switch ( task_t *task ) {
 }
 
 void before_task_yield () {
-    printf("running time: %d\n", taskExec->running_time);
-    // put your customization here
+    printf("task_yield - BEFORE - [%d]\n", taskExec->id);
 #ifdef DEBUG
     printf("\ntask_yield - BEFORE - [%d]", taskExec->id);
 #endif
 }
 void after_task_yield () {
-    taskExec->running_time+=5;
-    printf("running time: %d\n", taskExec->running_time);
-    printf("task %d ret is: %d\n\n", taskExec->id, task_get_ret(NULL));
+    printf("task_yield - AFTER - [%d]\n", taskExec->id);
+    // taskExec->running_time+=5;
+    // printf("running time: %d\n", taskExec->running_time);
+    // printf("task %d ret is: %d\n\n", taskExec->id, task_get_ret(NULL));
     // put your customization here
 #ifdef DEBUG
     printf("\ntask_yield - AFTER - [%d]", taskExec->id);
@@ -538,7 +538,7 @@ void tratador_timer(int signum){
     if(quantum <= 0){
         call_scheduler = 1;
         printf("----TICK----\n");
-        taskExec = scheduler();
+        task_yield();
         quantum = TASK_TICKS;
         call_scheduler = 0;
     } else {
