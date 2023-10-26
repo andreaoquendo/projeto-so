@@ -546,7 +546,7 @@ void tratador_timer(int signum){
     printf("\nquantum: %d\n", quantum);
 
     if(taskExec != NULL){
-        printf("\n task exec [%d] is running \n", taskExec->id);
+        printf("\n task exec [%d]'s status is %c \n", taskExec->id, taskExec->state);
     } else {
         printf("\n task exec is null \n");
     }
