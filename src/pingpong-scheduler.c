@@ -59,5 +59,7 @@ int main (int argc, char *argv[])
   task_join(&Pung);
 
   printf ("main: fim\n");
+
+  while(1);
   exit (0) ;
 }
