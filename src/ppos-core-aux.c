@@ -77,7 +77,7 @@ void after_task_create (task_t *task ) {
 
 void before_task_exit () {
     // put your customization here
-    // printf("\ntask_exit - BEFORE - [%d]", taskExec->id);
+    printf("\ntask_exit - BEFORE - [%d]", taskExec->id);
 #ifdef DEBUG
     printf("\ntask_exit - BEFORE - [%d]", taskExec->id);
 #endif
@@ -85,7 +85,7 @@ void before_task_exit () {
 
 void after_task_exit () {
     // put your customization here
-    // printf("\ntask_exit - AFTER- [%d]", taskExec->id);
+    printf("\ntask_exit - AFTER- [%d]", taskExec->id);
 
 #ifdef DEBUG
     printf("\ntask_exit - AFTER- [%d]", taskExec->id);
