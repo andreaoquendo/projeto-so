@@ -60,6 +60,6 @@ int main (int argc, char *argv[])
 
   printf ("main: fim\n");
 
-  // while(1);
+  while(1);
   exit (0) ;
 }
