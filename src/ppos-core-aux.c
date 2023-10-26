@@ -5,8 +5,14 @@
 // ****************************************************************************
 // Coloque aqui as suas modificações, p.ex. includes, defines variáveis, 
 // estruturas e funções
+#define PROJECT_CLOCK           2
+#define TASK_TICKS              20
 
+struct sigaction action ;
+struct itimerval timer ;
+int quantum;
 
+void tratador_timer(int signum);
 // ****************************************************************************
 
 
