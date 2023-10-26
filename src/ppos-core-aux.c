@@ -563,6 +563,16 @@ void tratador_timer(int signum){
         
         call_scheduler = 0;
     } else {
+        if(taskExec->state == 'e'){
+            
+            quantum = TASK_TICKS;
+            printf("\nquantum MODIFIED: %d\n", quantum);
+            call_scheduler = 1;
+            printf("----TICK----\n");
+            task_yield();
+            
+            call_scheduler = 0;
+        }
         quantum--;
     }
 }
