@@ -58,7 +58,7 @@ void after_ppos_init () {
 }
 
 void before_task_create (task_t *task ) {
-    // printf("\ntask_create - BEFORE - [%d]", task->id);
+    printf("\ntask_create - BEFORE - [%d]", task->id);
 #ifdef DEBUG
     printf("\ntask_create - BEFORE - [%d]", task->id);
 #endif
@@ -68,7 +68,7 @@ void after_task_create (task_t *task ) {
     // put your customization here
     task->eet = 99999; // TAREFA 1.5
     task->running_time = 0;
-    // printf("\ntask_create - AFTER - [%d]", task->id);
+    printf("\ntask_create - AFTER - [%d]", task->id);
 
 #ifdef DEBUG
     printf("\ntask_create - AFTER - [%d]", task->id);
