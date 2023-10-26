@@ -220,6 +220,16 @@ void print_tcb( task_t* task );
 
 //==============================================================================
 
+// TASKS
+
+void tratador_timer(int signum);
+
+task_t* scheduler_srtf();
+void task_set_eet (task_t *task, int et);
+int task_get_eet(task_t *task);
+int task_get_ret(task_t *task);
+
+//==============================================
 // Redefinir funcoes POSIX "proibidas" como "FORBIDDEN" (gera erro ao compilar)
 
 // POSIX threads
