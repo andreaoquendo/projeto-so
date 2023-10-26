@@ -473,7 +473,7 @@ task_t * scheduler() {
         } 
         
         call_scheduler = 0;
-        printf("\nselected task's [%d] status is: %c", taskExec->id, selectedTask
+        printf("\nselected task's [%d] status is: %c", selectedTask->id, selectedTask
         ->state);
         return selectedTask;
 
