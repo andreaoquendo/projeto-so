@@ -13,6 +13,11 @@ struct itimerval timer ;
 int quantum;
 
 void tratador_timer(int signum);
+
+task_t* scheduler_srtf();
+void task_set_eet (task_t *task, int et);
+int task_get_eet(task_t *task);
+int task_get_ret(task_t *task);
 // ****************************************************************************
 
 
@@ -440,9 +445,15 @@ int after_mqueue_msgs (mqueue_t *queue) {
 }
 
 /* TO-DO: Tudo aqui em baixo é para moficar */
+
+ /*
+    Uma função scheduler que analisa a fila de tarefas prontas, devolvendo um ponteiro para a próxima tarefa a receber o processador
+*/
 task_t * scheduler() {
     /* TO-DO:  SRTF */
     task_t* selectedTask = NULL;
+
+    if(quantum != 0){ return taskExec; }
 
     printf("---- SCHEDULER CHAMADO  ------\n");
     if ( readyQueue != NULL ) {
@@ -461,9 +472,7 @@ task_t * scheduler() {
 
     }
     return NULL;
-    /*
-    Uma função scheduler que analisa a fila de tarefas prontas, devolvendo um ponteiro para a próxima tarefa a receber o processador
-    */
+   
 }
 
 void task_set_eet (task_t *task, int et){ // [TAREFA 1.2.1]
