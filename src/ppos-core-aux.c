@@ -6,7 +6,7 @@
 // Coloque aqui as suas modificações, p.ex. includes, defines variáveis, 
 // estruturas e funções
 #define PROJECT_CLOCK           2
-#define TASK_TICKS              20
+#define TASK_TICKS              10
 
 struct sigaction action ;
 struct itimerval timer ;
@@ -443,12 +443,10 @@ int after_mqueue_msgs (mqueue_t *queue) {
     Uma função scheduler que analisa a fila de tarefas prontas, devolvendo um ponteiro para a próxima tarefa a receber o processador
 */
 task_t * scheduler() {
-    /* TO-DO:  SRTF */
     task_t* selectedTask = NULL;
 
     if(quantum != 0){ return taskExec; }
 
-    printf("---- SCHEDULER CHAMADO  ------\n");
     if ( readyQueue != NULL ) {
         task_t* currTask = readyQueue;
         selectedTask = readyQueue;
@@ -460,6 +458,8 @@ task_t * scheduler() {
                 selectedTask = currTask;
             }
         } 
+
+        if(quantum == 0){ quantum = TASK_TICKS; }
         
         return selectedTask;
 
@@ -541,6 +541,4 @@ void tratador_timer(int signum){
     } else {
         quantum--;
     }
-
-    printf ("Recebi o sinal %d\n", signum) ;
 }
