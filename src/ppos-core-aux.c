@@ -31,7 +31,6 @@ void after_ppos_init () {
     systemTime = 0;
     quantum = TASK_TICKS;
     system_lock = 1;
-
 #ifdef DEBUG
     printf("\ninit - AFTER");
 #endif
