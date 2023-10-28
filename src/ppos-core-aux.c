@@ -7,7 +7,7 @@
 // estruturas e funções
 #define PROJECT_SECONDS_CLOCK                2
 #define PROJECT_MILISSECONDS_CLOCK           0
-#define TASK_TICKS                           100
+#define TASK_TICKS                           1000
 
 struct sigaction action ;
 struct itimerval timer ;
