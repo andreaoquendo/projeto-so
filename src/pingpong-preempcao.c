@@ -16,7 +16,7 @@ task_t Pang, Peng, Ping, Pong, Pung ;
 int hardwork (int n)
 {
    int i, j, soma ;
-   printf("\ninicio soma\n");
+   printf(" ");
    soma = 0 ;
    for (i=0; i<n; i++)
       if(i%100 == 0){
@@ -25,7 +25,7 @@ int hardwork (int n)
       for (j=0; j<n; j++)
          soma += j ;
 
-    printf("\nfim soma\n");
+    printf(" ");
    return (soma) ;
 }
 
