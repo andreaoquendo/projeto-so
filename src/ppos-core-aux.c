@@ -70,7 +70,7 @@ void before_task_exit () {
 
 void after_task_exit () {
     
-    printf("Task %d exit: execution time %4d ms\n", taskExec->id, systemTime);
+    printf("Task %d exit: execution time %4d ms, processor time %4d ms\n", taskExec->id, systemTime, taskExec->running_time);
     system_lock = 1;
 #ifdef DEBUG
     printf("\ntask_exit - AFTER- [%d]", taskExec->id);
@@ -541,6 +541,7 @@ int task_getprio (task_t *task){
 void tratador_timer(int signum){
     systemTime++;
     quantum--;
+    taskExec->running_time++;
 
     if(system_lock == 0){ return; }
     if(quantum <= 0){
