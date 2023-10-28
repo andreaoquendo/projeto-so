@@ -18,15 +18,23 @@ int call_scheduler;
 
 
 void before_ppos_init () {
-    // inii
+    if(systemTime){
+        printf("\nsystem time já existe e é: %lu", systemTime);
+    }else{
+        systemTime = 0;
+    }
+
+    if(preemption){
+        printf("\npreemption já existe e é: %c", preemption);
+    }else{
+        preemption = '0';
+    }
 #ifdef DEBUG
     printf("\ninit - BEFORE");
 #endif
 }
 
 void after_ppos_init () {
-    // TASK 2
-    call_scheduler = 0;
 
     action.sa_handler = tratador_timer ;
     sigemptyset (&action.sa_mask) ;
@@ -39,7 +47,7 @@ void after_ppos_init () {
 
     // ajusta valores do temporizador
     timer.it_value.tv_usec = 0 ;      // primeiro disparo, em micro-segundos
-    timer.it_value.tv_sec  = 3 ;      // primeiro disparo, em segundos
+    timer.it_value.tv_sec  = 0 ;      // primeiro disparo, em segundos
     timer.it_interval.tv_usec = PROJECT_MILISSECONDS_CLOCK ;   // disparos subsequentes, em micro-segundos
     timer.it_interval.tv_sec  = PROJECT_SECONDS_CLOCK ;   // disparos subsequentes, em segundos
 
@@ -66,26 +74,28 @@ void before_task_create (task_t *task ) {
 
 void after_task_create (task_t *task ) {
     // put your customization here
-    task->eet = 99999; // TAREFA 1.5
+    task_set_type(task);
+    task_set_eet(task, 99999); // TAREFA 1.5
     task->running_time = 0;
-    printf("\ntask_create - AFTER - [%d]", task->id);
 
+    printf("\n-------- TASK CREATED -----------");
+    printf("id: %d", task->id);
+    printf("eet: %d", task->eet);
+    printf("type: %d", task->type);
+    printf("\n---------------------------------");
 #ifdef DEBUG
     printf("\ntask_create - AFTER - [%d]", task->id);
 #endif
 }
 
 void before_task_exit () {
-    // put your customization here
-    printf("\ntask_exit - BEFORE - [%d]", taskExec->id);
 #ifdef DEBUG
     printf("\ntask_exit - BEFORE - [%d]", taskExec->id);
 #endif
 }
 
 void after_task_exit () {
-    // put your customization here
-    printf("\ntask_exit - AFTER- [%d]", taskExec->id);
+    printf("\nshutting task [%d]...", taskExec->id);
 
 #ifdef DEBUG
     printf("\ntask_exit - AFTER- [%d]", taskExec->id);
@@ -447,17 +457,11 @@ int after_mqueue_msgs (mqueue_t *queue) {
     return 0;
 }
 
-/* TO-DO: Tudo aqui em baixo é para moficar */
-
  /*
     Uma função scheduler que analisa a fila de tarefas prontas, devolvendo um ponteiro para a próxima tarefa a receber o processador
 */
 task_t * scheduler() {
     task_t* selectedTask = NULL;
-
-    if(call_scheduler == 0){ return taskExec; }
-
-    printf("\nscheduler\n");
 
     if ( readyQueue != NULL ) {
         task_t* currTask = readyQueue;
@@ -465,7 +469,6 @@ task_t * scheduler() {
 
         while(currTask->next != readyQueue){  
             currTask = currTask->next;
-            printf("\ngoing through task [%d]", currTask->id);
 
             if(task_get_ret(currTask) < task_get_ret(selectedTask)){
                 selectedTask = currTask;
@@ -478,8 +481,7 @@ task_t * scheduler() {
         return selectedTask;
 
     }
-    printf("ready queue is null!!");
-    call_scheduler = 0;
+    printf("\nrREADY QUEUE IS EMPTY");
     return NULL;
    
 }
@@ -549,49 +551,30 @@ int task_getprio (task_t *task){
 }
 
 void tratador_timer(int signum){
-    call_scheduler = 1;
-    task_yield();
-    task_t* newTask = scheduler();
-    task_switch(newTask);
-    
-    // taskExec->running_time+=1;
+    systemTime++;
+    printf("\n------------------");
+    printf("\nsystem time: %lu", systemTime);
+    printf("\npreemption: %c", preemption); // Provavelmente esta só vai ser "ok" se a tarefa não for taskMain ou taskDisp
+    printf("\nuser tasks: %ld", countTasks);
 
-    // printf("\nquantum: %d\n", quantum);
+    if(taskExec != NULL){
+        if(taskExec == taskMain){
+            printf("\nTAREFA: <MAIN>");
+        } else if (taskExec == taskDisp){
+            printf("\nTAREFA: <DISPATCHER>");
+        } else {
+            printf("\nTAREFA: <USER TASK>");
+        }
+    }
 
-    // if(taskExec != NULL){
-    //     printf("\n task exec [%d]'s status is %c \n", taskExec->id, taskExec->state);
-    // } else {
-    //     printf("\n task exec is null \n");
-    // }
-    
-    // if(quantum <= 0){
-    //     quantum = TASK_TICKS;
-    //     printf("\nmodified quantum: %d\n", quantum);
-    //     if(taskExec->state != 'e' && taskExec->id < 2 ) { return; }
-    //     call_scheduler = 1;
-    //     printf("----TICK----\n");
-    //     task_yield();
-        
-    //     call_scheduler = 0;
-    // } else {
-    //     if(taskExec->state == 'e'){
-    //         quantum = TASK_TICKS;
-    //         printf("\nquantum MODIFIED: %d\n", quantum);
-    //         call_scheduler = 1;
-    //         printf("----TICK----\n");
-    //         task_yield();
-    //         task_t* newTask = scheduler();
-    //         task_switch(newTask);
-
-            
-    //         call_scheduler = 0;
-    //     }
-    //     quantum--;
-    // }
+    printf("\n------------------");
 }
 
-void task_settype(task_t *task, int type){
-    if (task == NULL) { return;}
+void task_set_type(task_t *task){
 
-    task->type = type;
+    if(task == taskMain || task == taskDisp){
+        task->type = 0;
+    } else {
+        task->type = 1;
+    }
 }
