@@ -553,7 +553,7 @@ void tratador_timer(int signum){
     //     }
     // }
 
-    if(quantum <= 0 && preemption == '1' && system_lock == 1){
+    if(quantum <= 0 && system_lock == 1){
         // printf("\n-------- TASK YIELD ----------\n");
         task_yield();
         quantum = 60;
