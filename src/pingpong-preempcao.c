@@ -19,7 +19,9 @@ int hardwork (int n)
    printf("\ninicio soma\n");
    soma = 0 ;
    for (i=0; i<n; i++)
-      printf("%d", i);
+      if(i%100 == 0){
+         printf("%d", i);
+      } 
       for (j=0; j<n; j++)
          soma += j ;
 
