@@ -7,7 +7,7 @@
 // estruturas e funções
 #define PROJECT_SECONDS_CLOCK                2
 #define PROJECT_MILISSECONDS_CLOCK           0
-#define TASK_TICKS                           1000
+#define TASK_TICKS                           20
 
 struct sigaction action ;
 struct itimerval timer ;
@@ -569,7 +569,7 @@ void configure_timer(){
     In Unix-like operating systems, setting both the seconds and microseconds of timer.it_value to 0 effectively disables the timer. When both values are set to 0, the timer will not generate any further SIGALRM signals after the initial one (if you've set it_interval to some non-zero values). Essentially, this configuration means that the timer fires immediately and then never fires again.
     */
 
-    timer.it_interval.tv_usec = 1 ;   // disparos subsequentes, em micro-segundos
+    timer.it_interval.tv_usec = 1000 ;   // disparos subsequentes, em micro-segundos
     timer.it_interval.tv_sec  = 0 ;   // disparos subsequentes, em segundos
 
     // arma o temporizador ITIMER_REAL (vide man setitimer)
