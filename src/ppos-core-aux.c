@@ -13,11 +13,13 @@ struct sigaction action ;
 struct itimerval timer ;
 int quantum;
 int call_scheduler;
+int system_lock = 0; // 0 - para quando está bloqueado, 1 = para quando nao esta bloqueado
 // ****************************************************************************
 
 
 
 void before_ppos_init () { 
+    system_lock = 0;
 #ifdef DEBUG
     printf("\ninit - BEFORE");
 #endif
@@ -28,6 +30,7 @@ void after_ppos_init () {
     configure_timer();
     systemTime = 0;
     quantum = 20;
+    system_lock = 1;
 
 #ifdef DEBUG
     printf("\ninit - AFTER");
@@ -35,6 +38,7 @@ void after_ppos_init () {
 }
 
 void before_task_create (task_t *task ) {
+    system_lock = 0;
     // printf("\ntask_create - BEFORE - [%d]", task->id);
 #ifdef DEBUG
     printf("\ntask_create - BEFORE - [%d]", task->id);
@@ -46,7 +50,7 @@ void after_task_create (task_t *task ) {
     task_set_type(task);
     task_set_eet(task, 99999); // TAREFA 1.5
     task->running_time = 0;
-
+    system_lock = 1;
     // printf("\n-------- TASK CREATED -----------\n");
     // printf("id: %d", task->id);
     // printf("eet: %d", task->eet);
@@ -58,12 +62,14 @@ void after_task_create (task_t *task ) {
 }
 
 void before_task_exit () {
+    system_lock = 0;
 #ifdef DEBUG
     printf("\ntask_exit - BEFORE - [%d]", taskExec->id);
 #endif
 }
 
 void after_task_exit () {
+    system_lock = 1;
     printf("\nshutting task [%d]...", taskExec->id);
 
 #ifdef DEBUG
@@ -72,13 +78,14 @@ void after_task_exit () {
 }
 
 void before_task_switch ( task_t *task ) {
-    // printf("\ntask_switch - BEFORE - [%d -> %d]", taskExec->id, task->id);
+    system_lock = 0;
 #ifdef DEBUG
     printf("\ntask_switch - BEFORE - [%d -> %d]", taskExec->id, task->id);
 #endif
 }
 
 void after_task_switch ( task_t *task ) {
+    system_lock = 1;
     // printf("task switch\n");
     // printf("\ntask_switch - AFTER - [%d -> %d]", taskExec->id, task->id);
 #ifdef DEBUG
@@ -87,12 +94,14 @@ void after_task_switch ( task_t *task ) {
 }
 
 void before_task_yield () {
+    system_lock = 0;
     // printf("task_yield - BEFORE - [%d]\n", taskExec->id);
 #ifdef DEBUG
     printf("\ntask_yield - BEFORE - [%d]", taskExec->id);
 #endif
 }
 void after_task_yield () {
+    system_lock = 1;
     // printf("task_yield - AFTER - [%d]\n", taskExec->id);
     // taskExec->running_time+=5;
     // printf("running time: %d\n", taskExec->running_time);
@@ -105,6 +114,7 @@ void after_task_yield () {
 
 
 void before_task_suspend( task_t *task ) {
+    system_lock = 0;
     // printf("\ntask_suspend - BEFORE - [%d]", task->id);
     // put your customization here
 #ifdef DEBUG
@@ -113,6 +123,7 @@ void before_task_suspend( task_t *task ) {
 }
 
 void after_task_suspend( task_t *task ) {
+    system_lock = 1;
     // printf("\ntask_suspend - AFTER - [%d]", task->id);
     // put your customization here
 #ifdef DEBUG
@@ -121,6 +132,7 @@ void after_task_suspend( task_t *task ) {
 }
 
 void before_task_resume(task_t *task) {
+    system_lock = 0;
     // printf("\ntask_resume - BEFORE - [%d]", task->id);
     // put your customization here
 #ifdef DEBUG
@@ -129,6 +141,7 @@ void before_task_resume(task_t *task) {
 }
 
 void after_task_resume(task_t *task) {
+    system_lock = 1;
     // printf("\ntask_resume - AFTER - [%d]", task->id);
     // put your customization here
 #ifdef DEBUG
@@ -137,6 +150,7 @@ void after_task_resume(task_t *task) {
 }
 
 void before_task_sleep () {
+    system_lock = 0;
     // printf("\ntask_sleep - BEFORE - [%d]", taskExec->id);
 #ifdef DEBUG
     printf("\ntask_sleep - BEFORE - [%d]", taskExec->id);
@@ -144,6 +158,7 @@ void before_task_sleep () {
 }
 
 void after_task_sleep () {
+    system_lock = 1;
     // put your customization here
     // printf("\ntask_sleep - AFTER - [%d]", taskExec->id);
 #ifdef DEBUG
@@ -152,6 +167,7 @@ void after_task_sleep () {
 }
 
 int before_task_join (task_t *task) {
+    system_lock = 0;
     // put your customization here
     // printf("eet of task id %d: %d\n", task->id, task_get_eet(task));
 #ifdef DEBUG
@@ -161,6 +177,7 @@ int before_task_join (task_t *task) {
 }
 
 int after_task_join (task_t *task) {
+    system_lock = 1;
     // put your customization here
     //  printf("\ntask_join - AFTER - [%d]", taskExec->id);
 #ifdef DEBUG
@@ -171,7 +188,7 @@ int after_task_join (task_t *task) {
 
 
 int before_sem_create (semaphore_t *s, int value) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nsem_create - BEFORE - [%d]", taskExec->id);
 #endif
@@ -179,7 +196,7 @@ int before_sem_create (semaphore_t *s, int value) {
 }
 
 int after_sem_create (semaphore_t *s, int value) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nsem_create - AFTER - [%d]", taskExec->id);
 #endif
@@ -187,7 +204,7 @@ int after_sem_create (semaphore_t *s, int value) {
 }
 
 int before_sem_down (semaphore_t *s) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nsem_down - BEFORE - [%d]", taskExec->id);
 #endif
@@ -195,7 +212,7 @@ int before_sem_down (semaphore_t *s) {
 }
 
 int after_sem_down (semaphore_t *s) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nsem_down - AFTER - [%d]", taskExec->id);
 #endif
@@ -203,7 +220,7 @@ int after_sem_down (semaphore_t *s) {
 }
 
 int before_sem_up (semaphore_t *s) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nsem_up - BEFORE - [%d]", taskExec->id);
 #endif
@@ -211,7 +228,7 @@ int before_sem_up (semaphore_t *s) {
 }
 
 int after_sem_up (semaphore_t *s) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nsem_up - AFTER - [%d]", taskExec->id);
 #endif
@@ -219,7 +236,7 @@ int after_sem_up (semaphore_t *s) {
 }
 
 int before_sem_destroy (semaphore_t *s) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nsem_destroy - BEFORE - [%d]", taskExec->id);
 #endif
@@ -227,7 +244,7 @@ int before_sem_destroy (semaphore_t *s) {
 }
 
 int after_sem_destroy (semaphore_t *s) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nsem_destroy - AFTER - [%d]", taskExec->id);
 #endif
@@ -235,7 +252,7 @@ int after_sem_destroy (semaphore_t *s) {
 }
 
 int before_mutex_create (mutex_t *m) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nmutex_create - BEFORE - [%d]", taskExec->id);
 #endif
@@ -243,7 +260,7 @@ int before_mutex_create (mutex_t *m) {
 }
 
 int after_mutex_create (mutex_t *m) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nmutex_create - AFTER - [%d]", taskExec->id);
 #endif
@@ -251,7 +268,7 @@ int after_mutex_create (mutex_t *m) {
 }
 
 int before_mutex_lock (mutex_t *m) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nmutex_lock - BEFORE - [%d]", taskExec->id);
 #endif
@@ -259,7 +276,7 @@ int before_mutex_lock (mutex_t *m) {
 }
 
 int after_mutex_lock (mutex_t *m) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nmutex_lock - AFTER - [%d]", taskExec->id);
 #endif
@@ -267,7 +284,7 @@ int after_mutex_lock (mutex_t *m) {
 }
 
 int before_mutex_unlock (mutex_t *m) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nmutex_unlock - BEFORE - [%d]", taskExec->id);
 #endif
@@ -275,7 +292,7 @@ int before_mutex_unlock (mutex_t *m) {
 }
 
 int after_mutex_unlock (mutex_t *m) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nmutex_unlock - AFTER - [%d]", taskExec->id);
 #endif
@@ -283,7 +300,7 @@ int after_mutex_unlock (mutex_t *m) {
 }
 
 int before_mutex_destroy (mutex_t *m) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nmutex_destroy - BEFORE - [%d]", taskExec->id);
 #endif
@@ -291,7 +308,7 @@ int before_mutex_destroy (mutex_t *m) {
 }
 
 int after_mutex_destroy (mutex_t *m) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nmutex_destroy - AFTER - [%d]", taskExec->id);
 #endif
@@ -299,7 +316,7 @@ int after_mutex_destroy (mutex_t *m) {
 }
 
 int before_barrier_create (barrier_t *b, int N) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nbarrier_create - BEFORE - [%d]", taskExec->id);
 #endif
@@ -307,7 +324,7 @@ int before_barrier_create (barrier_t *b, int N) {
 }
 
 int after_barrier_create (barrier_t *b, int N) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nbarrier_create - AFTER - [%d]", taskExec->id);
 #endif
@@ -315,7 +332,7 @@ int after_barrier_create (barrier_t *b, int N) {
 }
 
 int before_barrier_join (barrier_t *b) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nbarrier_join - BEFORE - [%d]", taskExec->id);
 #endif
@@ -323,7 +340,7 @@ int before_barrier_join (barrier_t *b) {
 }
 
 int after_barrier_join (barrier_t *b) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nbarrier_join - AFTER - [%d]", taskExec->id);
 #endif
@@ -331,7 +348,7 @@ int after_barrier_join (barrier_t *b) {
 }
 
 int before_barrier_destroy (barrier_t *b) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nbarrier_destroy - BEFORE - [%d]", taskExec->id);
 #endif
@@ -339,7 +356,7 @@ int before_barrier_destroy (barrier_t *b) {
 }
 
 int after_barrier_destroy (barrier_t *b) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nbarrier_destroy - AFTER - [%d]", taskExec->id);
 #endif
@@ -347,7 +364,7 @@ int after_barrier_destroy (barrier_t *b) {
 }
 
 int before_mqueue_create (mqueue_t *queue, int max, int size) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nmqueue_create - BEFORE - [%d]", taskExec->id);
 #endif
@@ -355,7 +372,7 @@ int before_mqueue_create (mqueue_t *queue, int max, int size) {
 }
 
 int after_mqueue_create (mqueue_t *queue, int max, int size) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nmqueue_create - AFTER - [%d]", taskExec->id);
 #endif
@@ -363,7 +380,7 @@ int after_mqueue_create (mqueue_t *queue, int max, int size) {
 }
 
 int before_mqueue_send (mqueue_t *queue, void *msg) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nmqueue_send - BEFORE - [%d]", taskExec->id);
 #endif
@@ -371,7 +388,7 @@ int before_mqueue_send (mqueue_t *queue, void *msg) {
 }
 
 int after_mqueue_send (mqueue_t *queue, void *msg) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nmqueue_send - AFTER - [%d]", taskExec->id);
 #endif
@@ -379,7 +396,7 @@ int after_mqueue_send (mqueue_t *queue, void *msg) {
 }
 
 int before_mqueue_recv (mqueue_t *queue, void *msg) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nmqueue_recv - BEFORE - [%d]", taskExec->id);
 #endif
@@ -387,7 +404,7 @@ int before_mqueue_recv (mqueue_t *queue, void *msg) {
 }
 
 int after_mqueue_recv (mqueue_t *queue, void *msg) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nmqueue_recv - AFTER - [%d]", taskExec->id);
 #endif
@@ -395,7 +412,7 @@ int after_mqueue_recv (mqueue_t *queue, void *msg) {
 }
 
 int before_mqueue_destroy (mqueue_t *queue) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nmqueue_destroy - BEFORE - [%d]", taskExec->id);
 #endif
@@ -403,7 +420,7 @@ int before_mqueue_destroy (mqueue_t *queue) {
 }
 
 int after_mqueue_destroy (mqueue_t *queue) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nmqueue_destroy - AFTER - [%d]", taskExec->id);
 #endif
@@ -411,7 +428,7 @@ int after_mqueue_destroy (mqueue_t *queue) {
 }
 
 int before_mqueue_msgs (mqueue_t *queue) {
-    // put your customization here
+    system_lock = 0;
 #ifdef DEBUG
     printf("\nmqueue_msgs - BEFORE - [%d]", taskExec->id);
 #endif
@@ -419,7 +436,7 @@ int before_mqueue_msgs (mqueue_t *queue) {
 }
 
 int after_mqueue_msgs (mqueue_t *queue) {
-    // put your customization here
+    system_lock = 1;
 #ifdef DEBUG
     printf("\nmqueue_msgs - AFTER - [%d]", taskExec->id);
 #endif
@@ -536,7 +553,7 @@ void tratador_timer(int signum){
     //     }
     // }
 
-    if(quantum <= 0 && preemption == '1'){
+    if(quantum <= 0 && preemption == '1' && system_lock == 1){
         // printf("\n-------- TASK YIELD ----------\n");
         task_yield();
         quantum = 20;
