@@ -14,6 +14,16 @@ struct itimerval timer ;
 int quantum;
 int call_scheduler;
 int system_lock = 0; // 0 - para quando está bloqueado, 1 = para quando nao esta bloqueado
+
+void tratador_timer(int signum);
+
+task_t* scheduler_srtf();
+void task_set_eet (task_t *task, int et);
+int task_get_eet(task_t *task);
+int task_get_ret(task_t *task);
+void task_set_type(task_t *task);
+void configure_timer();
+void preemption_update();
 // ****************************************************************************
 
 
