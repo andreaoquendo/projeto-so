@@ -20,7 +20,7 @@ int hardwork (int n)
    soma = 0 ;
    for (i=0; i<n; i++)
       if(i%100 == 0){
-         printf("%d", i);
+         printf("%d\n", i);
       } 
       for (j=0; j<n; j++)
          soma += j ;
