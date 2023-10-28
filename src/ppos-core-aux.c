@@ -544,7 +544,7 @@ void tratador_timer(int signum){
 
     }     
 
-    printf("\n------------------\n");
+    // printf("\n------------------\n");
 }
 
 void configure_timer(){
