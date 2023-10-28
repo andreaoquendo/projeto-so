@@ -69,9 +69,9 @@ void before_task_exit () {
 }
 
 void after_task_exit () {
+    
+    printf("Task %d exit: execution time %4d ms\n", taskExec->id, systemTime);
     system_lock = 1;
-    printf("\nshutting task [%d]...", taskExec->id);
-
 #ifdef DEBUG
     printf("\ntask_exit - AFTER- [%d]", taskExec->id);
 #endif
@@ -102,6 +102,7 @@ void before_task_yield () {
 }
 void after_task_yield () {
     system_lock = 1;
+    quantum = TASK_TICKS;
     // printf("task_yield - AFTER - [%d]\n", taskExec->id);
     // taskExec->running_time+=5;
     // printf("running time: %d\n", taskExec->running_time);
@@ -544,7 +545,6 @@ void tratador_timer(int signum){
     if(system_lock == 0){ return; }
     if(quantum <= 0){
         task_yield();
-        quantum = TASK_TICKS;
     } 
 
 }
@@ -601,4 +601,8 @@ void preemption_update(){
         preemption = '1';
     }
     system_lock = 1;
+}
+
+unsigned int systime(){
+    return systemTime;
 }
