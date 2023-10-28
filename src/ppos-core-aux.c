@@ -19,7 +19,7 @@ int call_scheduler;
 
 void before_ppos_init () {
     if(systemTime){
-        printf("\nsystem time já existe e é: %lu", systemTime);
+        printf("\nsystem time já existe e é: %u", systemTime);
     }else{
         systemTime = 0;
     }
@@ -553,7 +553,7 @@ int task_getprio (task_t *task){
 void tratador_timer(int signum){
     systemTime++;
     printf("\n------------------");
-    printf("\nsystem time: %lu", systemTime);
+    printf("\nsystem time: %u", systemTime);
     printf("\npreemption: %c", preemption); // Provavelmente esta só vai ser "ok" se a tarefa não for taskMain ou taskDisp
     printf("\nuser tasks: %ld", countTasks);
 

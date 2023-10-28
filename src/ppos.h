@@ -228,6 +228,7 @@ task_t* scheduler_srtf();
 void task_set_eet (task_t *task, int et);
 int task_get_eet(task_t *task);
 int task_get_ret(task_t *task);
+void task_set_type(task_t *task);
 
 //==============================================
 // Redefinir funcoes POSIX "proibidas" como "FORBIDDEN" (gera erro ao compilar)
