@@ -16,11 +16,11 @@ task_t Pang, Peng, Ping, Pong, Pung ;
 int hardwork (int n)
 {
    int i, j, soma ;
-   printf(" ");
+   printf("\ninicio soma\n");
    soma = 0 ;
    for (i=0; i<n; i++)
       if(i%100 == 0){
-         printf("%d\n", i);
+         printf(" ");
       } 
       for (j=0; j<n; j++)
          soma += j ;
