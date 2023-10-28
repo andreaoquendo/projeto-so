@@ -1,16 +1,6 @@
 #include "ppos.h"
 #include "ppos-core-globals.h"
 
-void tratador_timer(int signum);
-
-task_t* scheduler_srtf();
-void task_set_eet (task_t *task, int et);
-int task_get_eet(task_t *task);
-int task_get_ret(task_t *task);
-void task_set_type(task_t *task);
-void configure_timer();
-void preemption_update();
-
 
 // ****************************************************************************
 // Coloque aqui as suas modificações, p.ex. includes, defines variáveis, 
@@ -22,12 +12,20 @@ void preemption_update();
 struct sigaction action ;
 struct itimerval timer ;
 int quantum;
-int call_scheduler;
 int system_lock = 0; // 0 - para quando está bloqueado, 1 = para quando nao esta bloqueado
 
+void tratador_timer(int signum);
 
-// ************************* //********************
-// *******************************
+task_t* scheduler_srtf();
+void task_set_eet (task_t *task, int et);
+int task_get_eet(task_t *task);
+int task_get_ret(task_t *task);
+void task_set_type(task_t *task);
+void configure_timer();
+void preemption_update();
+
+
+// ************************* 
 
 
 
@@ -51,7 +49,6 @@ void after_ppos_init () {
 
 void before_task_create (task_t *task ) {
     system_lock = 0;
-    // printf("\ntask_create - BEFORE - [%d]", task->id);
 #ifdef DEBUG
     printf("\ntask_create - BEFORE - [%d]", task->id);
 #endif
@@ -61,7 +58,7 @@ void after_task_create (task_t *task ) {
 
     task->create_time = systemTime;
     task_set_type(task);
-    task_set_eet(task, 99999); // TAREFA 1.5
+    task_set_eet(task, 99999); 
     task->running_time = 0;
     task->activations = 1;
     system_lock = 1;
@@ -96,8 +93,6 @@ void before_task_switch ( task_t *task ) {
 
 void after_task_switch ( task_t *task ) {
     system_lock = 1;
-    // printf("task switch\n");
-    // printf("\ntask_switch - AFTER - [%d -> %d]", taskExec->id, task->id);
 #ifdef DEBUG
     printf("\ntask_switch - AFTER - [%d -> %d]", taskExec->id, task->id);
 #endif
@@ -106,29 +101,22 @@ void after_task_switch ( task_t *task ) {
 void before_task_yield () {
     taskExec->activations++;
     system_lock = 0;
-    // printf("task_yield - BEFORE - [%d]\n", taskExec->id);
 #ifdef DEBUG
     printf("\ntask_yield - BEFORE - [%d]", taskExec->id);
 #endif
 }
+
 void after_task_yield () {
     system_lock = 1;
     quantum = TASK_TICKS;
-    // printf("task_yield - AFTER - [%d]\n", taskExec->id);
-    // taskExec->running_time+=5;
-    // printf("running time: %d\n", taskExec->running_time);
-    // printf("task %d ret is: %d\n\n", taskExec->id, task_get_ret(NULL));
-    // put your customization here
 #ifdef DEBUG
     printf("\ntask_yield - AFTER - [%d]", taskExec->id);
 #endif
 }
 
-
 void before_task_suspend( task_t *task ) {
     system_lock = 0;
-    // printf("\ntask_suspend - BEFORE - [%d]", task->id);
-    // put your customization here
+
 #ifdef DEBUG
     printf("\ntask_suspend - BEFORE - [%d]", task->id);
 #endif
@@ -136,8 +124,6 @@ void before_task_suspend( task_t *task ) {
 
 void after_task_suspend( task_t *task ) {
     system_lock = 1;
-    // printf("\ntask_suspend - AFTER - [%d]", task->id);
-    // put your customization here
 #ifdef DEBUG
     printf("\ntask_suspend - AFTER - [%d]", task->id);
 #endif
@@ -145,8 +131,6 @@ void after_task_suspend( task_t *task ) {
 
 void before_task_resume(task_t *task) {
     system_lock = 0;
-    // printf("\ntask_resume - BEFORE - [%d]", task->id);
-    // put your customization here
 #ifdef DEBUG
     printf("\ntask_resume - BEFORE - [%d]", task->id);
 #endif
@@ -154,8 +138,6 @@ void before_task_resume(task_t *task) {
 
 void after_task_resume(task_t *task) {
     system_lock = 1;
-    // printf("\ntask_resume - AFTER - [%d]", task->id);
-    // put your customization here
 #ifdef DEBUG
     printf("\ntask_resume - AFTER - [%d]", task->id);
 #endif
@@ -163,7 +145,6 @@ void after_task_resume(task_t *task) {
 
 void before_task_sleep () {
     system_lock = 0;
-    // printf("\ntask_sleep - BEFORE - [%d]", taskExec->id);
 #ifdef DEBUG
     printf("\ntask_sleep - BEFORE - [%d]", taskExec->id);
 #endif
@@ -171,8 +152,7 @@ void before_task_sleep () {
 
 void after_task_sleep () {
     system_lock = 1;
-    // put your customization here
-    // printf("\ntask_sleep - AFTER - [%d]", taskExec->id);
+
 #ifdef DEBUG
     printf("\ntask_sleep - AFTER - [%d]", taskExec->id);
 #endif
@@ -180,8 +160,7 @@ void after_task_sleep () {
 
 int before_task_join (task_t *task) {
     system_lock = 0;
-    // put your customization here
-    // printf("eet of task id %d: %d\n", task->id, task_get_eet(task));
+
 #ifdef DEBUG
     printf("\ntask_join - BEFORE - [%d]", taskExec->id);
 #endif
@@ -190,8 +169,7 @@ int before_task_join (task_t *task) {
 
 int after_task_join (task_t *task) {
     system_lock = 1;
-    // put your customization here
-    //  printf("\ntask_join - AFTER - [%d]", taskExec->id);
+
 #ifdef DEBUG
     printf("\ntask_join - AFTER - [%d]", taskExec->id);
 #endif
