@@ -25,6 +25,7 @@ typedef struct task_t
    unsigned int awakeTime; // used to store the time when it should be waked up
 
    // ... (outros campos deve ser adicionados APOS esse comentario)
+   int create_time;
    int running_time; // ANDI: tempo que já rodou [TAREFA 1.3]
    int eet; // ANDI: estimated execution time [TAREFA 1.3]
 

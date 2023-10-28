@@ -46,6 +46,7 @@ void before_task_create (task_t *task ) {
 
 void after_task_create (task_t *task ) {
 
+    task->create_time = systemTime;
     task_set_type(task);
     task_set_eet(task, 99999); // TAREFA 1.5
     task->running_time = 0;
@@ -66,7 +67,7 @@ void before_task_exit () {
 
 void after_task_exit () {
     
-    printf("\nTask %d exit: execution time %4d ms, processor time %4d ms, %4d activations\n\n", taskExec->id, systime(), taskExec->running_time, taskExec->activations);
+    printf("\nTask %d exit: execution time %4d ms, processor time %4d ms, %4d activations\n\n", taskExec->id, (systime() - taskExec->create_time), taskExec->running_time, taskExec->activations);
     system_lock = 1;
 #ifdef DEBUG
     printf("\ntask_exit - AFTER- [%d]", taskExec->id);
