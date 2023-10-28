@@ -602,7 +602,3 @@ void preemption_update(){
     }
     system_lock = 1;
 }
-
-unsigned int systime(){
-    return systemTime;
-}
