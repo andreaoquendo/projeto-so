@@ -525,6 +525,8 @@ int task_getprio (task_t *task){
 
 void tratador_timer(int signum){
     systemTime++;
+    preemption_update();
+    
     printf("\n------------------");
     printf("\nsystem time: %u", systemTime);
     printf("\npreemption: %c", preemption); // Provavelmente esta só vai ser "ok" se a tarefa não for taskMain ou taskDisp
@@ -581,5 +583,13 @@ void task_set_type(task_t *task){
         task->type = 0;
     } else {
         task->type = 1;
+    }
+}
+
+void preemption_update(){
+    if(taskExec->type == 0){
+        preemption = '0';
+    } else {
+        preemption = '1';
     }
 }
