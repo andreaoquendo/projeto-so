@@ -59,6 +59,7 @@ void after_ppos_init () {
     }
 
     quantum = TASK_TICKS;
+    printf("\nppos quantum: %d\n", quantum);
     
 #ifdef DEBUG
     printf("\ninit - AFTER");
@@ -549,22 +550,23 @@ int task_getprio (task_t *task){
 
 void tratador_timer(int signum){
     systemTime++;
-    printf("\n------------------");
-    printf("\nsystem time: %u", systemTime);
-    printf("\npreemption: %c", preemption); // Provavelmente esta só vai ser "ok" se a tarefa não for taskMain ou taskDisp
-    printf("\nuser tasks: %ld", countTasks);
+    printf("TICK\n");
+    // printf("\n------------------");
+    // printf("\nsystem time: %u", systemTime);
+    // printf("\npreemption: %c", preemption); // Provavelmente esta só vai ser "ok" se a tarefa não for taskMain ou taskDisp
+    // printf("\nuser tasks: %ld", countTasks);
 
-    if(taskExec != NULL){
-        if(taskExec == taskMain){
-            printf("\nTAREFA: <MAIN>");
-        } else if (taskExec == taskDisp){
-            printf("\nTAREFA: <DISPATCHER>");
-        } else {
-            printf("\nTAREFA: <USER TASK>");
-        }
-    }
+    // if(taskExec != NULL){
+    //     if(taskExec == taskMain){
+    //         printf("\nTAREFA: <MAIN>");
+    //     } else if (taskExec == taskDisp){
+    //         printf("\nTAREFA: <DISPATCHER>");
+    //     } else {
+    //         printf("\nTAREFA: <USER TASK>");
+    //     }
+    // }
 
-    printf("\n------------------");
+    // printf("\n------------------");
 }
 
 void task_set_type(task_t *task){
