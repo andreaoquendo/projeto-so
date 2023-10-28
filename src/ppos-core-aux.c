@@ -447,20 +447,22 @@ int after_mqueue_msgs (mqueue_t *queue) {
     Uma função scheduler que analisa a fila de tarefas prontas, devolvendo um ponteiro para a próxima tarefa a receber o processador
 */
 task_t * scheduler() {
+    system_lock = 0;
     task_t* selectedTask = NULL;
 
     if ( readyQueue != NULL ) {
         task_t* currTask = readyQueue;
         selectedTask = readyQueue;
 
-        while(currTask->next != readyQueue){  
-            currTask = currTask->next;
+        // while(currTask->next != readyQueue){  
+        //     currTask = currTask->next;
 
-            if(task_get_ret(currTask) < task_get_ret(selectedTask)){
-                selectedTask = currTask;
-            }
-        } 
+        //     if(task_get_ret(currTask) < task_get_ret(selectedTask)){
+        //         selectedTask = currTask;
+        //     }
+        // } 
         
+        system_lock = 1;
         return selectedTask;
 
     }
@@ -471,13 +473,14 @@ task_t * scheduler() {
 
 void task_set_eet (task_t *task, int et){ // [TAREFA 1.2.1]
 
+    system_lock = 0;
     printf("Setting estimated time to: %d\n", et);
     if(task == NULL){
         taskExec->eet = et;
     } else {
         task->eet = et;
     }
-
+    system_lock = 1;
     /*
     Esta função ajusta a prioridade com base no tempo de execução total estimado para da tarefa. Caso task seja nulo, ajusta a prioridade da tarefa atual. Quando a tarefa já está eexecução, essa função deve sobrescrever tanto o valor estimado do tempo deexecução como também o valor do tempo que ainda resta para a tarefa terminarsua execução
     */
@@ -488,6 +491,7 @@ int task_get_eet(task_t *task){
     Esta função devolve o valor do tempo estimado de execução da tarefa task (ou da tarefa corrente, se task fornulo).
     [TAREFA 1.2.2]
     */
+
 
     if(task == NULL){ return taskExec-> eet; }
 
@@ -534,6 +538,7 @@ int task_getprio (task_t *task){
 }
 
 void tratador_timer(int signum){
+    system_lock = 0;
     systemTime++;
     quantum--;
     preemption_update();
@@ -544,13 +549,15 @@ void tratador_timer(int signum){
         quantum = 60;
     } else {
         // printf("\nnao")
-    }     
+    }
+    system_lock = 1;     
 
     // printf("\n------------------\n");
 }
 
 void configure_timer(){
     
+    system_lock = 0;
     action.sa_handler = tratador_timer ;
     sigemptyset (&action.sa_mask) ;
     action.sa_flags = 0 ;
@@ -568,7 +575,7 @@ void configure_timer(){
     In Unix-like operating systems, setting both the seconds and microseconds of timer.it_value to 0 effectively disables the timer. When both values are set to 0, the timer will not generate any further SIGALRM signals after the initial one (if you've set it_interval to some non-zero values). Essentially, this configuration means that the timer fires immediately and then never fires again.
     */
 
-    timer.it_interval.tv_usec = 50 ;   // disparos subsequentes, em micro-segundos
+    timer.it_interval.tv_usec = 500 ;   // disparos subsequentes, em micro-segundos
     timer.it_interval.tv_sec  = 0 ;   // disparos subsequentes, em segundos
 
     // arma o temporizador ITIMER_REAL (vide man setitimer)
@@ -579,21 +586,25 @@ void configure_timer(){
     }
 
     quantum = TASK_TICKS;
+    system_lock = 1;
 }
 
 void task_set_type(task_t *task){
-
+    system_lock = 0;
     if(task == taskDisp){
         task->type = 0;
     } else {
         task->type = 1;
     }
+    system_lock = 1;
 }
 
 void preemption_update(){
+    system_lock = 0;
     if(taskExec->type == 0){
         preemption = '0';
     } else {
         preemption = '1';
     }
+    system_lock = 1;
 }
