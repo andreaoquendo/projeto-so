@@ -29,7 +29,7 @@ void after_ppos_init () {
 
     configure_timer();
     systemTime = 0;
-    quantum = 20;
+    quantum = 60;
     system_lock = 1;
 
 #ifdef DEBUG
@@ -556,7 +556,7 @@ void tratador_timer(int signum){
     if(quantum <= 0 && preemption == '1' && system_lock == 1){
         // printf("\n-------- TASK YIELD ----------\n");
         task_yield();
-        quantum = 20;
+        quantum = 60;
     } else {
         // printf("\nnao")
     }     
@@ -583,7 +583,7 @@ void configure_timer(){
     In Unix-like operating systems, setting both the seconds and microseconds of timer.it_value to 0 effectively disables the timer. When both values are set to 0, the timer will not generate any further SIGALRM signals after the initial one (if you've set it_interval to some non-zero values). Essentially, this configuration means that the timer fires immediately and then never fires again.
     */
 
-    timer.it_interval.tv_usec = 20 ;   // disparos subsequentes, em micro-segundos
+    timer.it_interval.tv_usec = 1 ;   // disparos subsequentes, em micro-segundos
     timer.it_interval.tv_sec  = 0 ;   // disparos subsequentes, em segundos
 
     // arma o temporizador ITIMER_REAL (vide man setitimer)
