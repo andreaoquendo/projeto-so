@@ -66,7 +66,7 @@ void after_ppos_init () {
 }
 
 void before_task_create (task_t *task ) {
-    printf("\ntask_create - BEFORE - [%d]", task->id);
+    // printf("\ntask_create - BEFORE - [%d]", task->id);
 #ifdef DEBUG
     printf("\ntask_create - BEFORE - [%d]", task->id);
 #endif
@@ -78,7 +78,7 @@ void after_task_create (task_t *task ) {
     task_set_eet(task, 99999); // TAREFA 1.5
     task->running_time = 0;
 
-    printf("\n-------- TASK CREATED -----------");
+    printf("\n-------- TASK CREATED -----------\n");
     printf("id: %d", task->id);
     printf("eet: %d", task->eet);
     printf("type: %d", task->type);
@@ -475,9 +475,6 @@ task_t * scheduler() {
             }
         } 
         
-        call_scheduler = 0;
-        printf("\nselected task's [%d] status is: %c", selectedTask->id, selectedTask
-        ->state);
         return selectedTask;
 
     }
