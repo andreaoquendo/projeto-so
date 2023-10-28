@@ -538,7 +538,6 @@ int task_getprio (task_t *task){
 }
 
 void tratador_timer(int signum){
-    system_lock = 0;
     systemTime++;
     quantum--;
     preemption_update();
@@ -550,7 +549,6 @@ void tratador_timer(int signum){
     } else {
         // printf("\nnao")
     }
-    system_lock = 1;     
 
     // printf("\n------------------\n");
 }
