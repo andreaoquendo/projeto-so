@@ -430,7 +430,6 @@ int after_mqueue_msgs (mqueue_t *queue) {
     Uma função scheduler que analisa a fila de tarefas prontas, devolvendo um ponteiro para a próxima tarefa a receber o processador
 */
 task_t * scheduler() {
-    printf("\nscheduler call on: %u\n", systime());
     task_t* selectedTask = NULL;
 
     if ( readyQueue != NULL ) {
