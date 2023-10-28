@@ -519,6 +519,7 @@ int task_getprio (task_t *task){
 
 void tratador_timer(int signum){
     systemTime++;
+    quantum--;
     preemption_update();
 
     // printf("\n------------------");
@@ -541,7 +542,7 @@ void tratador_timer(int signum){
         task_yield();
         quantum = 20;
     } else {
-
+        // printf("\nnao")
     }     
 
     // printf("\n------------------\n");
