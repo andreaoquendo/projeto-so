@@ -557,7 +557,7 @@ void configure_timer(){
 
     // ajusta valores do temporizador
     timer.it_value.tv_usec = 0 ;      // primeiro disparo, em micro-segundos
-    timer.it_value.tv_sec  = 0 ;      // primeiro disparo, em segundos
+    timer.it_value.tv_sec  = 1 ;      // primeiro disparo, em segundos
     timer.it_interval.tv_usec = 0 ;   // disparos subsequentes, em micro-segundos
     timer.it_interval.tv_sec  = 1 ;   // disparos subsequentes, em segundos
 
@@ -569,7 +569,6 @@ void configure_timer(){
     }
 
     quantum = TASK_TICKS;
-    printf("\nppos quantum: %d\n", quantum);
 }
 
 void task_set_type(task_t *task){
