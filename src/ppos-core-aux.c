@@ -577,7 +577,7 @@ void configure_timer(){
 
 void task_set_type(task_t *task){
 
-    if(task == taskMain || task == taskDisp){
+    if(task == taskDisp){
         task->type = 0;
     } else {
         task->type = 1;
