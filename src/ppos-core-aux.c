@@ -525,23 +525,22 @@ int task_getprio (task_t *task){
 
 void tratador_timer(int signum){
     systemTime++;
-    printf("TICK\n");
-    // printf("\n------------------");
-    // printf("\nsystem time: %u", systemTime);
-    // printf("\npreemption: %c", preemption); // Provavelmente esta só vai ser "ok" se a tarefa não for taskMain ou taskDisp
-    // printf("\nuser tasks: %ld", countTasks);
+    printf("\n------------------");
+    printf("\nsystem time: %u", systemTime);
+    printf("\npreemption: %c", preemption); // Provavelmente esta só vai ser "ok" se a tarefa não for taskMain ou taskDisp
+    printf("\nuser tasks: %ld", countTasks);
 
-    // if(taskExec != NULL){
-    //     if(taskExec == taskMain){
-    //         printf("\nTAREFA: <MAIN>");
-    //     } else if (taskExec == taskDisp){
-    //         printf("\nTAREFA: <DISPATCHER>");
-    //     } else {
-    //         printf("\nTAREFA: <USER TASK>");
-    //     }
-    // }
+    if(taskExec != NULL){
+        if(taskExec == taskMain){
+            printf("\nTAREFA: <MAIN>");
+        } else if (taskExec == taskDisp){
+            printf("\nTAREFA: <DISPATCHER>");
+        } else {
+            printf("\nTAREFA: <USER TASK>");
+        }
+    }
 
-    // printf("\n------------------");
+    printf("\n------------------\n");
 }
 
 void configure_timer(){
@@ -562,7 +561,7 @@ void configure_timer(){
     /*
     In Unix-like operating systems, setting both the seconds and microseconds of timer.it_value to 0 effectively disables the timer. When both values are set to 0, the timer will not generate any further SIGALRM signals after the initial one (if you've set it_interval to some non-zero values). Essentially, this configuration means that the timer fires immediately and then never fires again.
     */
-   
+
     timer.it_interval.tv_usec = 0 ;   // disparos subsequentes, em micro-segundos
     timer.it_interval.tv_sec  = 1 ;   // disparos subsequentes, em segundos
 
