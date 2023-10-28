@@ -46,16 +46,13 @@ void before_task_create (task_t *task ) {
 }
 
 void after_task_create (task_t *task ) {
-    // put your customization here
+
     task_set_type(task);
     task_set_eet(task, 99999); // TAREFA 1.5
     task->running_time = 0;
+    task->activations = 0;
     system_lock = 1;
-    // printf("\n-------- TASK CREATED -----------\n");
-    // printf("id: %d", task->id);
-    // printf("eet: %d", task->eet);
-    // printf("type: %d", task->type);
-    // printf("\n---------------------------------");
+
 #ifdef DEBUG
     printf("\ntask_create - AFTER - [%d]", task->id);
 #endif
@@ -70,7 +67,7 @@ void before_task_exit () {
 
 void after_task_exit () {
     
-    printf("Task %d exit: execution time %4d ms, processor time %4d ms\n", taskExec->id, systemTime, taskExec->running_time);
+    printf("Task %d exit: execution time %4d ms, processor time %4d ms, %4d activations\n", taskExec->id, systemTime, taskExec->running_time, taskExec->activations);
     system_lock = 1;
 #ifdef DEBUG
     printf("\ntask_exit - AFTER- [%d]", taskExec->id);
@@ -94,6 +91,7 @@ void after_task_switch ( task_t *task ) {
 }
 
 void before_task_yield () {
+    taskExec->activations++;
     system_lock = 0;
     // printf("task_yield - BEFORE - [%d]\n", taskExec->id);
 #ifdef DEBUG
