@@ -453,13 +453,13 @@ task_t * scheduler() {
         task_t* currTask = readyQueue;
         selectedTask = readyQueue;
 
-        // while(currTask->next != readyQueue){  
-        //     currTask = currTask->next;
+        while(currTask->next != readyQueue){  
+            currTask = currTask->next;
 
-        //     if(task_get_ret(currTask) < task_get_ret(selectedTask)){
-        //         selectedTask = currTask;
-        //     }
-        // } 
+            if(task_get_ret(currTask) < task_get_ret(selectedTask)){
+                selectedTask = currTask;
+            }
+        } 
         
         system_lock = 1;
         return selectedTask;
@@ -471,27 +471,26 @@ task_t * scheduler() {
    
 }
 
+/*
+    Esta função ajusta a prioridade com base no tempo de execução total estimado para da tarefa. Caso task seja nulo, ajusta a prioridade da tarefa atual. Quando a tarefa já está eexecução, essa função deve sobrescrever tanto o valor estimado do tempo deexecução como também o valor do tempo que ainda resta para a tarefa terminarsua execução
+*/
 void task_set_eet (task_t *task, int et){ // [TAREFA 1.2.1]
 
     system_lock = 0;
     if(task == NULL){
-        taskExec->eet = et;
-    } else {
-        task->eet = et;
+        task = taskExec;
     }
+    task->eet = et;
     system_lock = 1;
-    /*
-    Esta função ajusta a prioridade com base no tempo de execução total estimado para da tarefa. Caso task seja nulo, ajusta a prioridade da tarefa atual. Quando a tarefa já está eexecução, essa função deve sobrescrever tanto o valor estimado do tempo deexecução como também o valor do tempo que ainda resta para a tarefa terminarsua execução
-    */
+
 }
 
-int task_get_eet(task_t *task){
-    /*
+/*
     Esta função devolve o valor do tempo estimado de execução da tarefa task (ou da tarefa corrente, se task fornulo).
     [TAREFA 1.2.2]
-    */
-
-
+*/
+int task_get_eet(task_t *task){
+    
     if(task == NULL){ return taskExec-> eet; }
 
     return task->eet;

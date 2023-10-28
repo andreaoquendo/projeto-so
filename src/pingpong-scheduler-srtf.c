@@ -78,7 +78,6 @@ int main (int argc, char *argv[])
     printf("systime: %u", systime());
     tempo++;
   }
-  printf("isso daqui que nao ta funcionando?");
   // estimate how many iterations is a microsecond
   aux_time = systime() + 1;
   while (systime() < aux_time)
