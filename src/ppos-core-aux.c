@@ -5,7 +5,7 @@
 // ****************************************************************************
 // Coloque aqui as suas modificações, p.ex. includes, defines variáveis, 
 // estruturas e funções
-#define PROJECT_SECONDS_CLOCK                1
+#define PROJECT_SECONDS_CLOCK                2
 #define PROJECT_MILISSECONDS_CLOCK           0
 #define TASK_TICKS                           20
 
@@ -18,49 +18,24 @@ int call_scheduler;
 
 
 void before_ppos_init () {
-    if(systemTime){
-        printf("\nsystem time já existe e é: %u", systemTime);
-    }else{
-        systemTime = 0;
-    }
+    // if(systemTime){
+    //     printf("\nsystem time já existe e é: %u", systemTime);
+    // }else{
+    //     systemTime = 0;
+    // }
 
-    if(preemption){
-        printf("\npreemption já existe e é: %c", preemption);
-    }else{
-        preemption = '0';
-    }
+    // if(preemption){
+    //     printf("\npreemption já existe e é: %c", preemption);
+    // }else{
+    //     preemption = '0';
+    // }
 #ifdef DEBUG
     printf("\ninit - BEFORE");
 #endif
 }
 
 void after_ppos_init () {
-
-    action.sa_handler = tratador_timer ;
-    sigemptyset (&action.sa_mask) ;
-    action.sa_flags = 0 ;
-    if (sigaction (SIGALRM, &action, 0) < 0)
-    {
-        perror ("Erro em sigaction: ") ;
-        exit (1) ;
-    }
-
-    // ajusta valores do temporizador
-    timer.it_value.tv_usec = 0 ;      // primeiro disparo, em micro-segundos
-    timer.it_value.tv_sec  = 0 ;      // primeiro disparo, em segundos
-    timer.it_interval.tv_usec = PROJECT_MILISSECONDS_CLOCK ;   // disparos subsequentes, em micro-segundos
-    timer.it_interval.tv_sec  = PROJECT_SECONDS_CLOCK ;   // disparos subsequentes, em segundos
-
-    // arma o temporizador ITIMER_REAL (vide man setitimer)
-    if (setitimer (ITIMER_REAL, &timer, 0) < 0)
-    {
-        perror ("Erro em setitimer: ") ;
-        exit (1) ;
-    }
-
-    quantum = TASK_TICKS;
-    printf("\nppos quantum: %d\n", quantum);
-    
+    configure_timer();
 #ifdef DEBUG
     printf("\ninit - AFTER");
 #endif
@@ -567,6 +542,34 @@ void tratador_timer(int signum){
     // }
 
     // printf("\n------------------");
+}
+
+void configure_timer(){
+    
+    action.sa_handler = tratador_timer ;
+    sigemptyset (&action.sa_mask) ;
+    action.sa_flags = 0 ;
+    if (sigaction (SIGALRM, &action, 0) < 0)
+    {
+        perror ("Erro em sigaction: ") ;
+        exit (1) ;
+    }
+
+    // ajusta valores do temporizador
+    timer.it_value.tv_usec = 0 ;      // primeiro disparo, em micro-segundos
+    timer.it_value.tv_sec  = 0 ;      // primeiro disparo, em segundos
+    timer.it_interval.tv_usec = 0 ;   // disparos subsequentes, em micro-segundos
+    timer.it_interval.tv_sec  = 1 ;   // disparos subsequentes, em segundos
+
+    // arma o temporizador ITIMER_REAL (vide man setitimer)
+    if (setitimer (ITIMER_REAL, &timer, 0) < 0)
+    {
+        perror ("Erro em setitimer: ") ;
+        exit (1) ;
+    }
+
+    quantum = TASK_TICKS;
+    printf("\nppos quantum: %d\n", quantum);
 }
 
 void task_set_type(task_t *task){
