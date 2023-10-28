@@ -538,7 +538,7 @@ void tratador_timer(int signum){
     // }
 
     if(quantum <= 0 && preemption == '1'){
-        printf("\n-------- TASK YIELD ----------\n");
+        // printf("\n-------- TASK YIELD ----------\n");
         task_yield();
         quantum = 20;
     } else {
