@@ -66,7 +66,7 @@ void before_task_exit () {
 
 void after_task_exit () {
     
-    printf("Task %d exit: execution time %4d ms, processor time %4d ms, %4d activations\n", taskExec->id, systemTime, taskExec->running_time, taskExec->activations);
+    printf("\nTask %d exit: execution time %4d ms, processor time %4d ms, %4d activations\n\n", taskExec->id, systemTime, taskExec->running_time, taskExec->activations);
     system_lock = 1;
 #ifdef DEBUG
     printf("\ntask_exit - AFTER- [%d]", taskExec->id);
