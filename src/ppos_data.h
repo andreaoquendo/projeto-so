@@ -29,6 +29,7 @@ typedef struct task_t
    int eet; // ANDI: estimated execution time [TAREFA 1.3]
    int prio;
    int type; // Tarefa é de usuário (1) ou de sistema (0)
+   unsigned int activations;
    
 } task_t ;
 
