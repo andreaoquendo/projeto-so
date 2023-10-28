@@ -7,7 +7,7 @@
 // estruturas e funções
 #define PROJECT_SECONDS_CLOCK                2
 #define PROJECT_MILISSECONDS_CLOCK           0
-#define TASK_TICKS                           20
+#define TASK_TICKS                           100
 
 struct sigaction action ;
 struct itimerval timer ;
@@ -29,7 +29,7 @@ void after_ppos_init () {
 
     configure_timer();
     systemTime = 0;
-    quantum = 20;
+    quantum = TASK_TICKS;
     system_lock = 1;
 
 #ifdef DEBUG
@@ -475,7 +475,6 @@ task_t * scheduler() {
 void task_set_eet (task_t *task, int et){ // [TAREFA 1.2.1]
 
     system_lock = 0;
-    printf("Setting estimated time to: %d\n", et);
     if(task == NULL){
         taskExec->eet = et;
     } else {
@@ -545,7 +544,7 @@ void tratador_timer(int signum){
     if(system_lock == 0){ return; }
     if(quantum <= 0){
         task_yield();
-        quantum = 20;
+        quantum = TASK_TICKS;
     } 
 
 }
