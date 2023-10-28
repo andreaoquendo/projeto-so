@@ -47,11 +47,11 @@ void after_task_create (task_t *task ) {
     task_set_eet(task, 99999); // TAREFA 1.5
     task->running_time = 0;
 
-    printf("\n-------- TASK CREATED -----------\n");
-    printf("id: %d", task->id);
-    printf("eet: %d", task->eet);
-    printf("type: %d", task->type);
-    printf("\n---------------------------------");
+    // printf("\n-------- TASK CREATED -----------\n");
+    // printf("id: %d", task->id);
+    // printf("eet: %d", task->eet);
+    // printf("type: %d", task->type);
+    // printf("\n---------------------------------");
 #ifdef DEBUG
     printf("\ntask_create - AFTER - [%d]", task->id);
 #endif
@@ -430,6 +430,7 @@ int after_mqueue_msgs (mqueue_t *queue) {
     Uma função scheduler que analisa a fila de tarefas prontas, devolvendo um ponteiro para a próxima tarefa a receber o processador
 */
 task_t * scheduler() {
+    printf("\nscheduler call on: %u\n", systime());
     task_t* selectedTask = NULL;
 
     if ( readyQueue != NULL ) {
@@ -538,6 +539,9 @@ void tratador_timer(int signum){
     if(quantum <= 0 && preemption == '1'){
         printf("\n-------- TASK YIELD ----------\n");
         task_yield();
+        quantum = 20;
+    } else {
+
     }     
 
     printf("\n------------------\n");
