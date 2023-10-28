@@ -467,6 +467,7 @@ task_t * scheduler() {
 
     }
     printf("\nrREADY QUEUE IS EMPTY");
+    system_lock = 1;
     return NULL;
    
 }
@@ -540,17 +541,13 @@ int task_getprio (task_t *task){
 void tratador_timer(int signum){
     systemTime++;
     quantum--;
-    preemption_update();
 
-    if(quantum <= 0 && system_lock == 1){
-        // printf("\n-------- TASK YIELD ----------\n");
+    if(system_lock == 0){ return; }
+    if(quantum <= 0){
         task_yield();
         quantum = 60;
-    } else {
-        // printf("\nnao")
-    }
+    } 
 
-    // printf("\n------------------\n");
 }
 
 void configure_timer(){
