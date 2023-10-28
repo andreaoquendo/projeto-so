@@ -17,25 +17,18 @@ int call_scheduler;
 
 
 
-void before_ppos_init () {
-    // if(systemTime){
-    //     printf("\nsystem time já existe e é: %u", systemTime);
-    // }else{
-    //     systemTime = 0;
-    // }
-
-    // if(preemption){
-    //     printf("\npreemption já existe e é: %c", preemption);
-    // }else{
-    //     preemption = '0';
-    // }
+void before_ppos_init () { 
 #ifdef DEBUG
     printf("\ninit - BEFORE");
 #endif
 }
 
 void after_ppos_init () {
+
     configure_timer();
+    systemTime = 0;
+    quantum = 20;
+
 #ifdef DEBUG
     printf("\ninit - AFTER");
 #endif
@@ -526,7 +519,7 @@ int task_getprio (task_t *task){
 void tratador_timer(int signum){
     systemTime++;
     preemption_update();
-    
+
     printf("\n------------------");
     printf("\nsystem time: %u", systemTime);
     printf("\npreemption: %c", preemption); // Provavelmente esta só vai ser "ok" se a tarefa não for taskMain ou taskDisp
@@ -541,6 +534,11 @@ void tratador_timer(int signum){
             printf("\nTAREFA: <USER TASK>");
         }
     }
+
+    if(quantum <= 0 && preemption == '1'){
+        printf("\n-------- TASK YIELD ----------\n");
+        task_yield();
+    }     
 
     printf("\n------------------\n");
 }
