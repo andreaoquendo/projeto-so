@@ -75,7 +75,6 @@ int main (int argc, char *argv[])
   printf("systime: %u", systime());
   int tempo = 0;
   while (systime() <= 0 && tempo<700) {
-    printf("systime: %u", systime());
     tempo++;
   }
   // estimate how many iterations is a microsecond -- milissecond?
