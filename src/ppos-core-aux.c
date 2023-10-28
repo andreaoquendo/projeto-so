@@ -186,7 +186,6 @@ int before_sem_create (semaphore_t *s, int value) {
 }
 
 int after_sem_create (semaphore_t *s, int value) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nsem_create - AFTER - [%d]", taskExec->id);
 #endif
@@ -194,7 +193,6 @@ int after_sem_create (semaphore_t *s, int value) {
 }
 
 int before_sem_down (semaphore_t *s) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nsem_down - BEFORE - [%d]", taskExec->id);
 #endif
@@ -202,7 +200,6 @@ int before_sem_down (semaphore_t *s) {
 }
 
 int after_sem_down (semaphore_t *s) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nsem_down - AFTER - [%d]", taskExec->id);
 #endif
@@ -210,7 +207,6 @@ int after_sem_down (semaphore_t *s) {
 }
 
 int before_sem_up (semaphore_t *s) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nsem_up - BEFORE - [%d]", taskExec->id);
 #endif
@@ -218,7 +214,6 @@ int before_sem_up (semaphore_t *s) {
 }
 
 int after_sem_up (semaphore_t *s) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nsem_up - AFTER - [%d]", taskExec->id);
 #endif
@@ -226,7 +221,6 @@ int after_sem_up (semaphore_t *s) {
 }
 
 int before_sem_destroy (semaphore_t *s) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nsem_destroy - BEFORE - [%d]", taskExec->id);
 #endif
@@ -234,7 +228,6 @@ int before_sem_destroy (semaphore_t *s) {
 }
 
 int after_sem_destroy (semaphore_t *s) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nsem_destroy - AFTER - [%d]", taskExec->id);
 #endif
@@ -242,7 +235,6 @@ int after_sem_destroy (semaphore_t *s) {
 }
 
 int before_mutex_create (mutex_t *m) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nmutex_create - BEFORE - [%d]", taskExec->id);
 #endif
@@ -250,7 +242,6 @@ int before_mutex_create (mutex_t *m) {
 }
 
 int after_mutex_create (mutex_t *m) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nmutex_create - AFTER - [%d]", taskExec->id);
 #endif
@@ -258,7 +249,6 @@ int after_mutex_create (mutex_t *m) {
 }
 
 int before_mutex_lock (mutex_t *m) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nmutex_lock - BEFORE - [%d]", taskExec->id);
 #endif
@@ -266,7 +256,6 @@ int before_mutex_lock (mutex_t *m) {
 }
 
 int after_mutex_lock (mutex_t *m) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nmutex_lock - AFTER - [%d]", taskExec->id);
 #endif
@@ -274,7 +263,6 @@ int after_mutex_lock (mutex_t *m) {
 }
 
 int before_mutex_unlock (mutex_t *m) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nmutex_unlock - BEFORE - [%d]", taskExec->id);
 #endif
@@ -282,7 +270,6 @@ int before_mutex_unlock (mutex_t *m) {
 }
 
 int after_mutex_unlock (mutex_t *m) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nmutex_unlock - AFTER - [%d]", taskExec->id);
 #endif
@@ -290,7 +277,6 @@ int after_mutex_unlock (mutex_t *m) {
 }
 
 int before_mutex_destroy (mutex_t *m) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nmutex_destroy - BEFORE - [%d]", taskExec->id);
 #endif
@@ -298,7 +284,6 @@ int before_mutex_destroy (mutex_t *m) {
 }
 
 int after_mutex_destroy (mutex_t *m) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nmutex_destroy - AFTER - [%d]", taskExec->id);
 #endif
@@ -306,7 +291,6 @@ int after_mutex_destroy (mutex_t *m) {
 }
 
 int before_barrier_create (barrier_t *b, int N) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nbarrier_create - BEFORE - [%d]", taskExec->id);
 #endif
@@ -314,7 +298,6 @@ int before_barrier_create (barrier_t *b, int N) {
 }
 
 int after_barrier_create (barrier_t *b, int N) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nbarrier_create - AFTER - [%d]", taskExec->id);
 #endif
@@ -322,7 +305,6 @@ int after_barrier_create (barrier_t *b, int N) {
 }
 
 int before_barrier_join (barrier_t *b) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nbarrier_join - BEFORE - [%d]", taskExec->id);
 #endif
@@ -330,7 +312,6 @@ int before_barrier_join (barrier_t *b) {
 }
 
 int after_barrier_join (barrier_t *b) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nbarrier_join - AFTER - [%d]", taskExec->id);
 #endif
@@ -338,7 +319,6 @@ int after_barrier_join (barrier_t *b) {
 }
 
 int before_barrier_destroy (barrier_t *b) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nbarrier_destroy - BEFORE - [%d]", taskExec->id);
 #endif
@@ -346,7 +326,6 @@ int before_barrier_destroy (barrier_t *b) {
 }
 
 int after_barrier_destroy (barrier_t *b) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nbarrier_destroy - AFTER - [%d]", taskExec->id);
 #endif
@@ -354,7 +333,6 @@ int after_barrier_destroy (barrier_t *b) {
 }
 
 int before_mqueue_create (mqueue_t *queue, int max, int size) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nmqueue_create - BEFORE - [%d]", taskExec->id);
 #endif
@@ -362,7 +340,6 @@ int before_mqueue_create (mqueue_t *queue, int max, int size) {
 }
 
 int after_mqueue_create (mqueue_t *queue, int max, int size) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nmqueue_create - AFTER - [%d]", taskExec->id);
 #endif
@@ -370,7 +347,6 @@ int after_mqueue_create (mqueue_t *queue, int max, int size) {
 }
 
 int before_mqueue_send (mqueue_t *queue, void *msg) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nmqueue_send - BEFORE - [%d]", taskExec->id);
 #endif
@@ -378,7 +354,6 @@ int before_mqueue_send (mqueue_t *queue, void *msg) {
 }
 
 int after_mqueue_send (mqueue_t *queue, void *msg) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nmqueue_send - AFTER - [%d]", taskExec->id);
 #endif
@@ -386,7 +361,6 @@ int after_mqueue_send (mqueue_t *queue, void *msg) {
 }
 
 int before_mqueue_recv (mqueue_t *queue, void *msg) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nmqueue_recv - BEFORE - [%d]", taskExec->id);
 #endif
@@ -394,7 +368,6 @@ int before_mqueue_recv (mqueue_t *queue, void *msg) {
 }
 
 int after_mqueue_recv (mqueue_t *queue, void *msg) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nmqueue_recv - AFTER - [%d]", taskExec->id);
 #endif
@@ -402,7 +375,6 @@ int after_mqueue_recv (mqueue_t *queue, void *msg) {
 }
 
 int before_mqueue_destroy (mqueue_t *queue) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nmqueue_destroy - BEFORE - [%d]", taskExec->id);
 #endif
@@ -410,7 +382,6 @@ int before_mqueue_destroy (mqueue_t *queue) {
 }
 
 int after_mqueue_destroy (mqueue_t *queue) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nmqueue_destroy - AFTER - [%d]", taskExec->id);
 #endif
@@ -418,7 +389,6 @@ int after_mqueue_destroy (mqueue_t *queue) {
 }
 
 int before_mqueue_msgs (mqueue_t *queue) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nmqueue_msgs - BEFORE - [%d]", taskExec->id);
 #endif
@@ -426,7 +396,6 @@ int before_mqueue_msgs (mqueue_t *queue) {
 }
 
 int after_mqueue_msgs (mqueue_t *queue) {
-    system_lock = 1;
 #ifdef DEBUG
     printf("\nmqueue_msgs - AFTER - [%d]", taskExec->id);
 #endif
