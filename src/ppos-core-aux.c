@@ -181,7 +181,6 @@ int after_task_join (task_t *task) {
 
 
 int before_sem_create (semaphore_t *s, int value) {
-    system_lock = 0;
 #ifdef DEBUG
     printf("\nsem_create - BEFORE - [%d]", taskExec->id);
 #endif
