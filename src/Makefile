@@ -6,14 +6,13 @@ SOURCES = pingpong-scheduler-srtf.c ppos-core-aux.c
 
 # Opções do compilador
 CC = gcc
-CFLAGS = -Wall -std=c99
 
 # Nome da biblioteca estática
 LIBRARY = libppos_static.a
 
 # Comando de compilação
 $(TARGET): $(SOURCES) $(LIBRARY)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SOURCES) $(LIBRARY)
+	$(CC) -o $(TARGET) $(SOURCES) $(LIBRARY)
 
 # Regra para criar a biblioteca estática
 $(LIBRARY):
