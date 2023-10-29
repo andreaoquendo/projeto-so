@@ -1,6 +1,11 @@
 #include "ppos.h"
 #include "ppos-core-globals.h"
 
+/*
+    Código modificado pela aluna
+    Andrea Alexandra Sánez Oquendo
+    RA:2126524
+*/
 
 // ****************************************************************************
 // Coloque aqui as suas modificações, p.ex. includes, defines variáveis, 

@@ -2,6 +2,12 @@
 // Prof. Carlos A. Maziero, DINF UFPR
 // Versão 1.1 -- Julho de 2016
 
+/*
+    Código modificado pela aluna
+    Andrea Alexandra Sánez Oquendo
+    RA:2126524
+*/
+
 // Estruturas de dados internas do sistema operacional
 
 #ifndef __PPOS_DATA__
