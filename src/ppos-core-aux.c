@@ -27,8 +27,6 @@ int task_get_eet(task_t *task);
 int task_get_ret(task_t *task);
 void task_set_type(task_t *task);
 void configure_timer();
-void preemption_update();
-
 
 // ************************* 
 
@@ -452,7 +450,6 @@ void task_set_eet (task_t *task, int et){ // [TAREFA 1.2.1]
 
 /*
     Esta função devolve o valor do tempo estimado de execução da tarefa task (ou da tarefa corrente, se task fornulo).
-    [TAREFA 1.2.2]
 */
 int task_get_eet(task_t *task){
     
@@ -528,10 +525,6 @@ void configure_timer(){
     timer.it_value.tv_usec = 1 ;      // primeiro disparo, em micro-segundos
     timer.it_value.tv_sec  = 0 ;      // primeiro disparo, em segundos
 
-    /*
-    In Unix-like operating systems, setting both the seconds and microseconds of timer.it_value to 0 effectively disables the timer. When both values are set to 0, the timer will not generate any further SIGALRM signals after the initial one (if you've set it_interval to some non-zero values). Essentially, this configuration means that the timer fires immediately and then never fires again.
-    */
-
     timer.it_interval.tv_usec = 1000 ;   // disparos subsequentes, em micro-segundos
     timer.it_interval.tv_sec  = 0 ;   // disparos subsequentes, em segundos
 
@@ -552,16 +545,6 @@ void task_set_type(task_t *task){
         task->type = 0;
     } else {
         task->type = 1;
-    }
-    system_lock = 1;
-}
-
-void preemption_update(){
-    system_lock = 0;
-    if(taskExec->type == 0){
-        preemption = '0';
-    } else {
-        preemption = '1';
     }
     system_lock = 1;
 }
