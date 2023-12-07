@@ -20,7 +20,7 @@ char user_tasks_names[USER_TASKS_MAX][15];
 
 int user_tasks_execution_time[USER_TASKS_MAX] = {30, 50, 70, 90, 110, 130, 150, 170, 190, 210}; // cenario 3
 
-//int user_tasks_execution_time[USER_TASKS_MAX] = {210, 190, 170, 150, 130, 110, 90, 70, 50, 30}; // cenario 4
+// int user_tasks_execution_time[USER_TASKS_MAX] = {210, 190, 170, 150, 130, 110, 90, 70, 50, 30}; // cenario 4
 
 int one_tick = 0;
 
